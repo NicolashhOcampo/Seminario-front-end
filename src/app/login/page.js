@@ -23,8 +23,6 @@ export default function Page() {
       
             if (!response.ok) throw new Error("Credenciales incorrectas");
       
-            const data = await response.json();
-            localStorage.setItem("token", data.token); // Guarda el token
       
             router.push("/products"); // Redirige a /products
           } catch (err) {
