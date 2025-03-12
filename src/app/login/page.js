@@ -1,8 +1,11 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
+import { useState } from "react";
 
 export default function Page() {
+  const router = useRouter()
+
     const [email, setEmail] = useState("")
     const [password, setPassword] = useState("")
     const [error, setError] =useState("")
