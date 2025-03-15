@@ -1,5 +1,6 @@
 "use client";
 
+import Login from "@/components/Login/Login";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -34,36 +35,8 @@ export default function Page() {
       };
     
       return (
-        <main style={{ height: "100vh", width: "100%" }}>
-          <div
-            style={{
-              height: "100%",
-              display: "flex",
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            <h2>Iniciar Sesión</h2>
-            <form
-              name="login"
-              onSubmit={handleSubmit}
-              style={{
-                border: "solid black",
-                display: "flex",
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                gap: "10px",
-                padding: "20px",
-              }}
-            >
-              <input placeholder="Ingrese su email" name="email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
-              <input placeholder="Ingrese su contraseña" name="password" type="password" value={password} onChange={e => setPassword(e.target.value)} required />
-              <button type="submit">Iniciar Sesión</button>
-            </form>
-            {error && (<p>{error}</p>)}
-          </div>
-        </main>
+        <div className="h-screen w-screen bg-[linear-gradient(130deg,rgb(2,0,36)_0%,rgb(110,32,255)_35%,rgb(0,212,255)_100%)] flex flex-col items-center justify-center">          
+            <Login email={email} setEmail={setEmail} password={password} setPassword={setPassword} handleSubmit={handleSubmit} error={error}/>
+        </div>
       );
 }
