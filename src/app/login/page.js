@@ -33,7 +33,7 @@ export default function Page() {
       };
     
       return (
-        <main style={{ border: "solid black", height: "100vh" }}>
+        <main style={{ height: "100vh", width: "100%" }}>
           <div
             style={{
               height: "100%",
