@@ -2,6 +2,7 @@
 
 import Navbar from "@/components/Navbar/Navbar";
 import ProductContainer from "@/components/ProductsContainer/ProductsContainer";
+import Sidebar from "@/components/Sidebar/Sidebar";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
@@ -48,6 +49,7 @@ export default function Page() {
     return (
         <>
             <Navbar/>
+            <Sidebar user={{name: 'Pacho', role: 'admin'}}/>
             <div className="w-full pt-8 flex justify-center">
               <ProductContainer products={products}/>
             </div>
