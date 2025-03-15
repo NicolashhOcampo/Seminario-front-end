@@ -19,6 +19,7 @@ export default function Page() {
               method: "POST",
               headers: { "Content-Type": "application/json" },
               body: JSON.stringify({ email, password }),
+              credentials: 'include',
             });
       
             if (!response.ok) throw new Error("Credenciales incorrectas");
