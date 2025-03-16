@@ -3,19 +3,18 @@
 import { ItemCart } from "@/components/ItemCart/ItemCart.jsx";
 import { useCart } from "../hooks/useCart";
 import { CartContainer } from "@/components/CartContainer/CartContainer";
+import { DivideIcon } from "@heroicons/react/24/outline";
 
 
 export default function Page() {
-  const { cart, reduceFromCart } = useCart();
+  const { cart } = useCart();
 
-  console.log(cart)
 
  
 
   return (
-    <div>
+      
       <CartContainer cart={cart}/>
-    </div>
-    
+
   );
 }

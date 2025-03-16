@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {TrashIcon} from "@heroicons/react/24/outline"
 
 export const ItemCart = ({item, onClickReduce, onClickAdd}) => {
     const [quantity, setQuantity] = useState(item.quantity)
@@ -47,11 +48,16 @@ export const ItemCart = ({item, onClickReduce, onClickAdd}) => {
                 >
                 +
                 </button>
-
             </div>
+  
         </div>
 
-        <p className="justify-self-end self-end ml-auto text-lg font-semibold text-gray-800">${item.quantity * item.price}</p>
+        
+        <div className='flex flex-col justify-between items-center ml-auto'>
+            <TrashIcon className='w-5' />
+            <p className="justify-self-end self-end  text-lg font-semibold text-gray-800">${item.quantity * item.price}</p>
+        </div>
+        
 
     </div>
   )
