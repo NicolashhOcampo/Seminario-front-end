@@ -15,7 +15,6 @@ export default function Page() {
         const fetchProducts = async () => {
             try {
       
-
               const url = new URL("http://localhost:8080/api/products");
               url.searchParams.append("limit", 10);
               url.searchParams.append("page", 1);
@@ -48,7 +47,7 @@ export default function Page() {
     return (
         <>
             <Navbar/>
-            <div className="w-full pt-8 flex justify-center">
+            <div className="w-full pt-4 flex justify-center">
               <ProductContainer products={products}/>
             </div>
             {error && (<p>{error}</p>)}
