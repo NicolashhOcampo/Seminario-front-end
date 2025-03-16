@@ -49,7 +49,7 @@ export default function Page() {
     return (
         <>
             <Navbar/>
-            <Sidebar user={{name: 'Pacho', role: 'admin'}}/>
+            <Sidebar user={{name: 'Pacho', role: 'Admin'}}/>
             <div className="w-full pt-8 flex justify-center">
               <ProductContainer products={products}/>
             </div>
