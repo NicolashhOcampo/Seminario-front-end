@@ -6,7 +6,8 @@ module.exports = {
       "./pages/**/*.{js,jsx}"
     ],
     theme: {
-      extend: {},
+      extend: {
+      }
     },
     plugins: [],
   };
