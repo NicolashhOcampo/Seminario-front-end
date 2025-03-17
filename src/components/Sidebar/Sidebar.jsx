@@ -1,13 +1,17 @@
+'use client'
+
 import { ArrowLeftEndOnRectangleIcon, Bars3Icon, ChatBubbleLeftRightIcon, ChevronLeftIcon, HomeIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useUser } from "@/context/UserContext";
 
 export default function Sidebar({user}) {
-    const userName = user?.name || "Usuario";
+    const userNickName = user?.nickName || "Usuario";
     const userRole = user?.role || "Invitado";
 
     const [isNavOpen, setIsNavOpen] = useState(true);
     const router = useRouter()
+    const { fetchUser } = useUser();
 
 
   const handleClickOption = (redirect) => {
@@ -18,7 +22,8 @@ export default function Sidebar({user}) {
     fetch('http://localhost:8080/api/auth/logout', {
         method: "GET",
         credentials: 'include'
-    })
+    });
+    fetchUser();
     router.push('/login')
   }
 
@@ -44,35 +49,35 @@ export default function Sidebar({user}) {
 
 
       {/* Content */}
-      <div className={`flex-1 p-4 bg-gray-900 transition-all duration-200 ${isNavOpen ? "w-20" : "w-64"} flex flex-col`}>
+    <div className={`flex-1 p-4 bg-gray-900 transition-all duration-200 ${isNavOpen ? "w-20" : "w-64"} flex flex-col`}>
         <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
-                <i className={"text-xl min-w-[3rem] text-center"}>
-                    <HomeIcon className="size-6" />
-                </i>
-                {!isNavOpen && <span className="ml-2" onClick={() => handleClickOption('/products')}>Home</span>}
-            </div>
-            <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
-                <i className={"text-xl min-w-[3rem] text-center"}>
-                    <ChatBubbleLeftRightIcon className="size-6" />
-                </i>
-            {!isNavOpen && <span className="ml-2">Chat</span>}
-            </div>
-            <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
-                <i className={"text-xl min-w-[3rem] text-center"}>
-                    <PlusIcon className="size-6" />
-                </i>
-            {!isNavOpen && <span className="ml-2">Add Product</span>}
-            </div>
-            <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
-                <i className={"text-xl min-w-[3rem] text-center"}>
-                    <TrashIcon className="size-6" />
-                </i>
-            {!isNavOpen && <span className="ml-2">Delete Product</span>}
-            </div>
-            
+            <i className={"text-xl min-w-[3rem] text-center"}>
+                <HomeIcon className="size-6" />
+            </i>
+            {!isNavOpen && <span className="ml-2" onClick={() => handleClickOption('/products')}>Home</span>}
         </div>
+        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
+            <i className={"text-xl min-w-[3rem] text-center"}>
+                <ChatBubbleLeftRightIcon className="size-6" />
+            </i>
+        {!isNavOpen && <span className="ml-2">Chat</span>}
+        </div>
+        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
+            <i className={"text-xl min-w-[3rem] text-center"}>
+                <PlusIcon className="size-6" />
+            </i>
+        {!isNavOpen && <span className="ml-2">Add Product</span>}
+        </div>
+        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
+            <i className={"text-xl min-w-[3rem] text-center"}>
+                <TrashIcon className="size-6" />
+            </i>
+        {!isNavOpen && <span className="ml-2">Delete Product</span>}
+        </div>
+        
+    </div>
 
-      <hr className="border-gray-700 w-[calc(100%)]" />
+    <hr className="border-gray-700 w-[calc(100%)]" />
 
       
       {/* Footer */}
@@ -89,8 +94,8 @@ export default function Sidebar({user}) {
             />
         )}
         {!isNavOpen &&   
-            <div className="ml-4 font-semibold cursor-pointer" onClick={() => handleClickOption(`/profile/${user.name}`)}>
-                {userName}
+            <div className="ml-4 font-semibold cursor-pointer" onClick={() => handleClickOption(`/profile/${userNickName}`)}>
+                {userNickName}
             <p className="text-xs text-gray-400">{userRole}</p>
             </div>
         }

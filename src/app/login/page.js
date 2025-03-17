@@ -29,8 +29,6 @@ export default function Page() {
     } catch (err) {
       setError(err.message);
     }
-
-    console.log("Formulario enviado");
   };
 
   return (
