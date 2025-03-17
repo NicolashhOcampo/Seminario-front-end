@@ -8,80 +8,62 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 export default function Page() {
-  const router = useRouter()
+  const router = useRouter();
 
-  const [products, setProducts] = useState([])
-  const [error, setError] = useState("")
-
+  const [user, setUser] = useState(null);
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
 
-  useEffect(()=>{
-    const checkAuth = async () => {
+  useEffect(() => {
+    const fetchUserAndProducts = async () => {
       try {
-        const res = await fetch("http://localhost:8080/api/auth/me", {
+        const userRes = await fetch("http://localhost:8080/api/auth/current", {
           credentials: "include",
         });
 
-        if (!res.ok) {
-          router.push("/login"); // Redirige si no está autenticado
-        } else {
-          setLoading(false);
+        if (!userRes.ok) {
+          router.push("/login");
+          return;
         }
+
+        const userData = await userRes.json();
+        setUser(userData);
+
+        const url = new URL("http://localhost:8080/api/products");
+        url.searchParams.append("limit", 10);
+        url.searchParams.append("page", 1);
+        url.searchParams.append("sort", "asc");
+
+        const productsRes = await fetch(url, {
+          method: "GET",
+          credentials: "include",
+        });
+
+        if (!productsRes.ok) throw new Error("Error al cargar los productos");
+
+        const productsData = await productsRes.json();
+        setProducts(productsData.payload);
       } catch (err) {
-        console.error("Error verificando autenticación:", err);
-        router.push("/login");
+        setError(err.message);
+      } finally {
+        setLoading(false);
       }
     };
 
-  checkAuth();
+    fetchUserAndProducts();
+  }, [router]);
 
-  }, [router])
-
-  useEffect(() => {
-    if(!loading) {
-      const fetchProducts = async () => {
-        try {
-          const url = new URL("http://localhost:8080/api/products");
-          url.searchParams.append("limit", 10);
-          url.searchParams.append("page", 1);
-          url.searchParams.append("sort", "asc"); // 'asc' o 'desc'
-          //url.searchParams.append("query", "category");
-          //url.searchParams.append("value", "electronics");
-          const response = await fetch(url, {
-            method: "GET",
-            credentials: "include"
-          });
-  
-          if (!response.ok) {
-            throw new Error("Error al cargar los productos");
-          }
-  
-          const data = await response.json();
-          setProducts(data.payload);
-        } catch (err) {
-          setError(err.message);
-        }
-      }
-    
-    fetchProducts()
-    console.log(products)
-    }
-  }, [loading])
-
-  if (loading) {
-    return (
-      <Spinner />
-    );
-  }
+  if (loading) return <Spinner />;
 
   return (
-      <>
-        <Navbar/>
-        <Sidebar user={{name: 'Pacho', role: 'Admin'}}/>
-        <div className="w-full pt-8 flex justify-center">
-          <ProductContainer products={products}/>
-        </div>
-        {error && (<p>{error}</p>)}
-      </>
-  )
+    <>
+      <Navbar />
+      <Sidebar user={{ name: user.nickName, role: user.role }} />
+      <div className="w-full pt-8 flex justify-center">
+        <ProductContainer products={products} />
+      </div>
+      {error && <p>{error}</p>}
+    </>
+  );
 }

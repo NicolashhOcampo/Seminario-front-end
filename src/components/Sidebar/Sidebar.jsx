@@ -3,9 +3,13 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 export default function Sidebar({user}) {
-  const [isNavOpen, setIsNavOpen] = useState(true);
+    const userName = user?.name || "Usuario";
+    const userRole = user?.role || "Invitado";
 
-  const router = useRouter()
+    const [isNavOpen, setIsNavOpen] = useState(true);
+    const router = useRouter()
+
+
   const handleClickOption = (redirect) => {
     router.push(redirect)
   }
@@ -86,8 +90,8 @@ export default function Sidebar({user}) {
         )}
         {!isNavOpen &&   
             <div className="ml-4 font-semibold cursor-pointer" onClick={() => handleClickOption(`/profile/${user.name}`)}>
-                {user.name}
-            <p className="text-xs text-gray-400">{user.role}</p>
+                {userName}
+            <p className="text-xs text-gray-400">{userRole}</p>
             </div>
         }
         <button

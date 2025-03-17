@@ -64,7 +64,7 @@ const EditButton = () => {
 
 const Profile = () => {
   return (
-    <div className="max-w-2xl mx-auto bg-white shadow-md rounded-lg relative">
+    <div className="mt-20 max-w-2xl mx-auto bg-white shadow-md rounded-lg relative">
       <EditButton />
       <ProfileCard />
       <ProfileForm />
