@@ -10,7 +10,7 @@ import { useUser } from "@/context/UserContext"
 
 export default function Page() {
   const router = useRouter();
-  const { user, setUser } = useUser();
+  const { fetchUser } = useUser();
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
@@ -45,26 +45,9 @@ export default function Page() {
         }
       };
 
-      const fetchUser = async () => {
-        try {
-          const response = await fetch("http://localhost:8080/api/auth/current", {
-            method: "GET",
-            headers: { "Content-Type": "application/json" },
-            credentials: 'include',
-          });
-    
-          if (!response.ok) throw new Error("Error al cargar usuario");
-          const user = await response.json()
-          console.log("User:", user)
-          setUser(user.user)
-          
-        } catch (err) {
-          setError(err.message);
-        }
-      }
   
       fetchProducts();
-      //fetchUser()
+      fetchUser()
   }, [router]);
 
   if (loading) return <Spinner />;

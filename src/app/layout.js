@@ -8,9 +8,13 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar/Sidebar";
 
+const validPaths = ["/cart", "/products"];
 
 export default function RootLayout({ children }) {
-  const isLoginPage = ["/login", "/"].includes(usePathname())
+
+  const pathname = usePathname()
+  
+  const isvalidPath = validPaths.includes(pathname) || pathname.startsWith('/profile/');
   // const { user } = useUser() 
 
   // useEffect(()=>{
@@ -27,7 +31,7 @@ export default function RootLayout({ children }) {
       <body>
         <UserProvider>
           <CartProvider>
-          {!isLoginPage && (
+          {isvalidPath&& (
             <>
               <Navbar />
               <Sidebar  />

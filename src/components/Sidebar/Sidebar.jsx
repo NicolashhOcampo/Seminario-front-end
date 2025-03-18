@@ -6,10 +6,10 @@ import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 
 export default function Sidebar() {
-    const {user, fetchUser} = useUser()
+    const {user, fetchUser, loading} = useUser()
 
-    const userNickName = user?.nickName || "Usuario";
-    const userRole = user?.role || "Invitado";
+    const userNickName = loading? "Usuario" : user.nickName;
+    const userRole = loading? "Invitado" : user.role;
 
     const [isNavOpen, setIsNavOpen] = useState(true);
     const router = useRouter()
