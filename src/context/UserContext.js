@@ -9,33 +9,33 @@ export const UserProvider = ({ children }) => {
   const [user, setUser] = useState( null )
   const router = useRouter()
 
-const fetchUser = async () => {
+  const fetchUser = async () => {
     try {
-        const userRes = await fetch("http://localhost:8080/api/auth/current", {
-        credentials: "include",
-        });
+      const response = await fetch("http://localhost:8080/api/auth/current", {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+        credentials: 'include',
+      });
 
-        if (!userRes.ok) {
-          if (userRes.status === 401) {
-              router.push('/login')
-          } else {
-            throw new Error("No se pudo obtener el usuario");
-          }
-        }
-
-        const userData = await userRes.json();
-        setUser(userData);
+      if (!response.ok) throw new Error("Error al cargar usuario");
+      const user = await response.json()
+      console.log("User:", user)
+      setUser(user)
+      
     } catch (err) {
-        setUser(null);
+      //setError(err.message);
+      console.log("Error:", err.message)
     }
-    };
+  }
 
   useEffect(() => {
+    console.log("Contecto creado")
+
     fetchUser();
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, fetchUser }}>
+    <UserContext.Provider value={{ user, fetchUser, setUser }}>
       {children}
     </UserContext.Provider>
   );

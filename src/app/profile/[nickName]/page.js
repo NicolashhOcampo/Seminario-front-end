@@ -4,9 +4,18 @@ import Navbar from "@/components/Navbar/Navbar";
 import Profile from "@/components/Profile/Profile";
 import Sidebar from "@/components/Sidebar/Sidebar";
 import { useUser } from "@/context/UserContext";
+import { useEffect } from "react";
 
 export default function Page() {
-    const { user } = useUser();
+    const { user, fetchUser } = useUser();
+
+    useEffect(() => {
+
+        fetchUser()
+        console.log(user)
+        
+
+    }, [])
 
     return (
         <>
