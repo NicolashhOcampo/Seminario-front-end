@@ -1,6 +1,7 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import Spinner from "../Spinner/Spinner";
+import { useUser } from "@/context/UserContext";
 
 const InputField = ({ name, value, label, placeholder, edit, onChange }) => {
   return (
@@ -26,15 +27,17 @@ const Profile = ({ user }) => {
       <Spinner />
     )
   }
-  const [edit, setEdit] = useState(false);
 
+  const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
     firstName: user.firstName || "",
     lastName: user.lastName || "",
     email: user.email || "",
     nickName: user.nickName || "",
   });
+  const {fetchUser} = useUser()
 
+  
   // Manejar cambios en los inputs
   const handleInputChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
@@ -54,10 +57,20 @@ const Profile = ({ user }) => {
         throw new Error("Error updating user");
       }
 
+      const data= await response.json()
+      const newUser = data.message
+
+      console.log("New User: ", newUser)
+      
+      fetchUser()
       setEdit(false);
+
+
     } catch (error) {
       console.error("Update failed:", error);
     }
+
+  
   };
 
   return (
