@@ -69,16 +69,13 @@ export default function Page() {
 
   if (loading) return <Spinner />;
 
-  console.log("user:", user.email)
+
 
   return (
     <>
-      <Navbar />
-      <Sidebar user={{ nickName: user?.nickName || "Usuario", role: user?.role || "Invitado" }} />
       <div className="w-full pt-8 flex justify-center">
         <ProductContainer products={products} />
       </div>
-      {error && <p>{error}</p>}
     </>
   );
 }

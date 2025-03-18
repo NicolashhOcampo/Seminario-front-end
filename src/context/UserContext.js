@@ -1,7 +1,8 @@
 'use client'
 
-import { createContext, useContext, useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import { createContext, useContext, useState, useEffect } from 'react';
+
 
 const UserContext = createContext();
 
@@ -25,6 +26,8 @@ export const UserProvider = ({ children }) => {
     } catch (err) {
       //setError(err.message);
       console.log("Error:", err.message)
+      router.push("/login")
+
     }
   }
 
