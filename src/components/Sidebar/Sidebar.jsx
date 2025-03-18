@@ -60,7 +60,7 @@ export default function Sidebar({user}) {
             <i className={"text-xl min-w-[3rem] text-center"}>
                 <ChatBubbleLeftRightIcon className="size-6" />
             </i>
-        {!isNavOpen && <span className="ml-2">Chat</span>}
+        {!isNavOpen && <span className="ml-2" onClick={() => handleClickOption('/chat')}>Chat</span>}
         </div>
         <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
             <i className={"text-xl min-w-[3rem] text-center"}>
