@@ -2,6 +2,7 @@ import { PencilSquareIcon } from "@heroicons/react/24/outline";
 import React, { useState } from "react";
 import Spinner from "../Spinner/Spinner";
 import { useUser } from "@/context/UserContext";
+import { useRouter } from "next/navigation";
 
 const InputField = ({ name, value, label, placeholder, edit, onChange }) => {
   return (
@@ -27,6 +28,8 @@ const Profile = ({ user }) => {
       <Spinner />
     )
   }
+
+  const router = useRouter()
 
   const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
@@ -65,6 +68,7 @@ const Profile = ({ user }) => {
       fetchUser()
       setEdit(false);
 
+      router.push(`/profile/${formData.nickName}`)
 
     } catch (error) {
       console.error("Update failed:", error);

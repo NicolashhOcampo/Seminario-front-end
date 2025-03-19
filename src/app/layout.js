@@ -1,11 +1,28 @@
-'use client'
+'use client';
 
 import { CartProvider } from "@/context/cartContext";
 import "./globals.css";
-import { UserProvider } from "@/context/UserContext";
+import { UserProvider, useUser } from "@/context/UserContext";
+import Navbar from "@/components/Navbar/Navbar";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+import Sidebar from "@/components/Sidebar/Sidebar";
 
+const validPaths = ["/cart", "/products"];
 
 export default function RootLayout({ children }) {
+
+  const pathname = usePathname()
+  
+  const isvalidPath = validPaths.includes(pathname) || pathname.startsWith('/profile/');
+  // const { user } = useUser() 
+
+  // useEffect(()=>{
+  //   console.log("layout cargado")
+  // }, [user]);
+
+
+
   return (
     <html lang="en">
       <head>
@@ -14,6 +31,14 @@ export default function RootLayout({ children }) {
       <body>
         <UserProvider>
           <CartProvider>
+          {isvalidPath&& (
+            <>
+              <Navbar />
+              <Sidebar  />
+            </>
+            
+          )}
+
             {children}
           </CartProvider>
         </UserProvider>

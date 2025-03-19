@@ -5,13 +5,15 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 
-export default function Sidebar({user}) {
-    const userNickName = user?.nickName || "Usuario";
-    const userRole = user?.role || "Invitado";
+export default function Sidebar() {
+    const {user, fetchUser, loading} = useUser()
+
+    const userNickName = loading? "Usuario" : user.nickName;
+    const userRole = loading? "Invitado" : user.role;
 
     const [isNavOpen, setIsNavOpen] = useState(true);
     const router = useRouter()
-    const { fetchUser } = useUser();
+    //const { fetchUser } = useUser();
 
 
   const handleClickOption = (redirect) => {
