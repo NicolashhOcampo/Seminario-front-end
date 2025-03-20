@@ -18,9 +18,9 @@ export default function Page() {
       const fetchProducts = async () => {
         try {
           const url = new URL(`${config.urlHost}/api/products`);
-          url.searchParams.append("limit", 10);
+          /* url.searchParams.append("limit", 10);
           url.searchParams.append("page", 1);
-          url.searchParams.append("sort", "asc");
+          url.searchParams.append("sort", "asc"); */
   
           const productsRes = await fetch(url, {
             method: "GET",

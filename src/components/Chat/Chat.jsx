@@ -16,7 +16,7 @@ export default function Chat() {
 
   useEffect(() => {
     if (messages.length > 0) {
-      setLoading(false); // Oculta el Spinner cuando hay mensajes
+      setLoading(false);
       const scrollToBottom = () => {
         messagesEndRef.current?.scrollTo({
           top: messagesEndRef.current.scrollHeight,

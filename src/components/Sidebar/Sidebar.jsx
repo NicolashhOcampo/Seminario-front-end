@@ -53,19 +53,19 @@ export default function Sidebar() {
 
       {/* Content */}
     <div className={`flex-1 p-4 bg-gray-900 transition-all duration-200 ${isNavOpen ? "w-20" : "w-64"} flex flex-col`}>
-        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
+        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300"  onClick={() => handleClickOption('/products')}>
             <i className={"text-xl min-w-[3rem] text-center"}>
                 <HomeIcon className="size-6" />
             </i>
-            {!isNavOpen && <span className="ml-2" onClick={() => handleClickOption('/products')}>Home</span>}
+            {!isNavOpen && <span className="ml-2">Home</span>}
         </div>
-        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
+        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300" onClick={() => handleClickOption('/chat')}>
             <i className={"text-xl min-w-[3rem] text-center"}>
                 <ChatBubbleLeftRightIcon className="size-6" />
             </i>
-        {!isNavOpen && <span className="ml-2" onClick={() => handleClickOption('/chat')}>Chat</span>}
+        {!isNavOpen && <span className="ml-2">Chat</span>}
         </div>
-        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
+        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300" onClick={() => handleClickOption('/createProduct')}>
             <i className={"text-xl min-w-[3rem] text-center"}>
                 <PlusIcon className="size-6" />
             </i>
