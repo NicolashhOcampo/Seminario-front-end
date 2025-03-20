@@ -52,12 +52,16 @@ export default function Page() {
 
   if (loading) return <Spinner />;
 
+  const handleClickProduct = (id) => {
+    console.log("ID: ", id)
+    router.push(`/products/${id}`)
+  }
 
 
   return (
     <>
       <div className="w-full pt-8 flex justify-center">
-        <ProductContainer products={products} />
+        <ProductContainer products={products} onClickProduct={handleClickProduct} />
       </div>
     </>
   );

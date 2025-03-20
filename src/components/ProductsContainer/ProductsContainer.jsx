@@ -3,7 +3,7 @@
 import { useCart } from "@/app/hooks/useCart";
 import ProductCard from "../ProductCard/ProductCard";
 
-const ProductContainer = ({products}) => {
+const ProductContainer = ({products, onClickProduct}) => {
 
     const {addToCart} = useCart()
 
@@ -15,7 +15,8 @@ const ProductContainer = ({products}) => {
                         <ProductCard key={product._id} className="w-50 border-black" img={`http://localhost:8080/public/images/${product.thumbnails[0]}`} 
                         title={product.title}
                         price={product.price}
-                        onClick={() => addToCart(product)}/>
+                        onClick={() => onClickProduct(product._id)}
+                        onClickAdd={() => addToCart(product)}/>
                 
                 )
             })}
