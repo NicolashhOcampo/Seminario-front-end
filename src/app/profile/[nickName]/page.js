@@ -13,7 +13,6 @@ export default function Page() {
 
     useEffect(() => {
         fetchUser()
-        console.log(user)
     }, [])
 
     return (

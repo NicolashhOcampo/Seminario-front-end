@@ -1,5 +1,6 @@
 'use client'
 
+import config from '@/config/app.config';
 import { useRouter } from 'next/navigation';
 import { createContext, useContext, useState, useEffect } from 'react';
 
@@ -13,7 +14,7 @@ export const UserProvider = ({ children }) => {
 
   const fetchUser = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/auth/current", {
+      const response = await fetch(`${config.urlHost}/api/auth/current`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
         credentials: 'include',
@@ -23,7 +24,6 @@ export const UserProvider = ({ children }) => {
       const user = await response.json()
       //console.log("User:", user)
       setUser(()=>{
-        console.log("User seteado:", user)
         return user
       })
       setLoading(false)
@@ -37,7 +37,6 @@ export const UserProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log("Contexto creado")
 
     fetchUser();
   }, []);

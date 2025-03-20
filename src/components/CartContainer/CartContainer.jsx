@@ -1,4 +1,4 @@
-import { useCart } from "@/app/hooks/useCart";
+import { useCart } from "@/hooks/useCart";
 import { ItemCart } from "../ItemCart/ItemCart";
 
 export const CartContainer = ({cart}) => {

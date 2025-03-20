@@ -4,6 +4,7 @@ import { ArrowLeftEndOnRectangleIcon, Bars3Icon, ChatBubbleLeftRightIcon, Chevro
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
+import config from "@/config/app.config";
 
 export default function Sidebar() {
     const {user, fetchUser, loading} = useUser()
@@ -21,7 +22,7 @@ export default function Sidebar() {
   }
 
   const handleLogout = () => {
-    fetch('http://localhost:8080/api/auth/logout', {
+    fetch(`${config.urlHost}/api/auth/logout`, {
         method: "GET",
         credentials: 'include'
     });

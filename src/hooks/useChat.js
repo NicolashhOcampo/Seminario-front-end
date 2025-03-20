@@ -1,23 +1,27 @@
 "use client";
 
+import config from "@/config/app.config";
+import { useUser } from "@/context/UserContext";
 import { useEffect, useState } from "react";
 import { io } from "socket.io-client";
-
-const SOCKET_URL = "http://localhost:8080";
 
 export function useChat() {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
+  const { user } = useUser() 
 
   useEffect(() => {
-    const socketInstance = io(SOCKET_URL, {
+    const socketInstance = io(config.urlHost, {
       withCredentials: true,
     });
 
     setSocket(socketInstance);
 
     socketInstance.on("connect", () => {
-      console.log("Conectado al servidor de sockets");
+      console.log("Conectado al servidor de sockets: ", user);
+      if (user?.nickName) {
+        socketInstance.emit("newUser", user.nickName);
+      }
     });
 
     socketInstance.on("messageLogs", (data) => {
@@ -32,7 +36,7 @@ export function useChat() {
     return () => {
       socketInstance.disconnect();
     };
-  }, []);
+  }, [user]);
 
   const sendMessage = (user, message) => {
     if (socket) {

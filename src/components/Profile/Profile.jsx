@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import Spinner from "../Spinner/Spinner";
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
+import config from "@/config/app.config";
 
 const InputField = ({ name, value, label, placeholder, edit, onChange }) => {
   return (
@@ -49,7 +50,7 @@ const Profile = ({ user }) => {
   // Guardar cambios en el backend
   const handleSaveChanges = async () => {
     try {
-      const response = await fetch("http://localhost:8080/api/users/", {
+      const response = await fetch(`${config.urlHost}/api/users/`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({userId: user.id, ...formData}),

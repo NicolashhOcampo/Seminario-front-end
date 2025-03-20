@@ -1,12 +1,11 @@
 'use client';
 
-import Navbar from "@/components/Navbar/Navbar";
 import ProductContainer from "@/components/ProductsContainer/ProductsContainer";
-import Sidebar from "@/components/Sidebar/Sidebar";
 import Spinner from "@/components/Spinner/Spinner";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext"
+import config from "@/config/app.config";
 
 export default function Page() {
   const router = useRouter();
@@ -18,7 +17,7 @@ export default function Page() {
   useEffect(() => {
       const fetchProducts = async () => {
         try {
-          const url = new URL("http://localhost:8080/api/products");
+          const url = new URL(`${config.urlHost}/api/products`);
           url.searchParams.append("limit", 10);
           url.searchParams.append("page", 1);
           url.searchParams.append("sort", "asc");
