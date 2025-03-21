@@ -27,16 +27,25 @@ export function CartProvider ({children}){
       if (!elementInCart) return
 
       if(elementInCart.quantity === 1){
-        const newCart = [...cart];
-        newCart.pop(elementInCart)
+        const newCart = [...cart].filter(item => (item !== elementInCart))
         setCart(newCart)
       }else{
         elementInCart.quantity -= 1
       }
     }
 
+    const removeFromCart = (product) => {
+      const elementInCart = cart.find(item => item._id === product._id)
+
+      if (!elementInCart) return 
+
+      const newCart = [...cart].filter(item => (item !== elementInCart))
+      //newCart.remove(elementInCart)
+      setCart(newCart)
+    }
+
     return (
-        <CartContext.Provider value={{ cart, setCart, addToCart, reduceFromCart }}>
+        <CartContext.Provider value={{ cart, setCart, addToCart, reduceFromCart, removeFromCart }}>
           {children}
         </CartContext.Provider>
       );

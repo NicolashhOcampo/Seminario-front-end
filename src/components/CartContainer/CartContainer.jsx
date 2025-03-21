@@ -2,7 +2,7 @@ import { useCart } from "@/hooks/useCart";
 import { ItemCart } from "../ItemCart/ItemCart";
 
 export const CartContainer = ({cart}) => {
-    const {addToCart, reduceFromCart} = useCart()
+    const {addToCart, reduceFromCart, removeFromCart} = useCart()
 
     
   return (
@@ -13,7 +13,12 @@ export const CartContainer = ({cart}) => {
               <p>El carrito está vacío</p>
             ) : (
               cart.map((item) => (
-                <ItemCart key={item._id}  item={item} onClickReduce={() => reduceFromCart(item)} onClickAdd={() => addToCart(item)} />
+                <ItemCart key={item._id}
+                  item={item}
+                  onClickReduce={() => reduceFromCart(item)}
+                  onClickAdd={() => addToCart(item)}
+                  onClickDelete={() => removeFromCart(item)}
+                  />
               ))
             )}
           </div>

@@ -1,7 +1,7 @@
 'use client';
 
-import { useCart } from "@/app/hooks/useCart";
 import { ProductDetail } from "@/components/ProductDetails/ProductDetail";
+import { useCart } from "@/hooks/useCart";
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
