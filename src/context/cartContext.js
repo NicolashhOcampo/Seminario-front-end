@@ -30,6 +30,8 @@ export function CartProvider ({children}){
       const elementInCart = cart.findIndex(item => item._id === product._id)
 
       if(elementInCart >= 0){
+        if (cart[elementInCart].stock <= cart[elementInCart].quantity) return
+
         const newCart = [...cart]
         newCart[elementInCart].quantity += 1
         setCart(newCart)

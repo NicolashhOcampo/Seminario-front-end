@@ -2,16 +2,18 @@ import React, { useState } from 'react'
 import {TrashIcon} from "@heroicons/react/24/outline"
 
 export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
-    const [quantity, setQuantity] = useState(item.quantity)
 
     const handleClickReduce = () => {
         onClickReduce()
-        setQuantity(item.quantity)
     }
 
     const handleClickAdd = () => {
         onClickAdd()
-        setQuantity(item.quantity)
+        console.log("Stock: ", item.stock)
+    }
+
+    const disabledAdd = () => {
+        return item.quantity >= item.stock
     }
 
   return (
@@ -39,12 +41,13 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
                 </button>
         
                 {/* Cantidad */}
-                <p className="text-lg font-bold">{quantity}</p>
+                <p className="text-lg font-bold">{item.quantity}</p>
         
                 {/* Botón de sumar */}
                 <button
                 onClick={handleClickAdd}
-                className="px-3 py-1  rounded-lg hover:bg-green-600 active:scale-95 transition"
+                className = {`px-3 py-1  rounded-lg ${disabledAdd()? "text-gray-400" : "hover:bg-green-600 active:scale-95 transition"} `}
+                disabled = {disabledAdd()}
                 >
                 +
                 </button>
@@ -54,7 +57,7 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
 
         
         <div className='flex flex-col justify-between items-center ml-auto'>
-            <TrashIcon onClick={onClickDelete} className='w-10 px-2 py-2  rounded-lg hover:bg-red-600' />
+            <TrashIcon onClick={onClickDelete} className='w-10 px-2 py-2 ml-auto  rounded-lg hover:bg-red-600' />
             <p className="justify-self-end self-end  text-lg font-semibold text-gray-800">${item.quantity * item.price}</p>
         </div>
         
