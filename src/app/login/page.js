@@ -25,7 +25,8 @@ export default function Page() {
       });
 
       if (!response.ok) throw new Error("Credenciales incorrectas");
-      console.log("login: ", response)
+      // const user = await response.json()
+      // console.log("login: ", user)
 
       router.push("/products"); // Redirige a /products
     } catch (err) {

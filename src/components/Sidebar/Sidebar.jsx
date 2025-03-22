@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import config from "@/config/app.config";
+import Spinner from "../Spinner/Spinner";
 
 export default function Sidebar() {
     const {user, fetchUser, loading} = useUser()
@@ -29,6 +30,8 @@ export default function Sidebar() {
     fetchUser();
     router.push('/login')
   }
+
+  if(!user) return (<Spinner />)
 
   return (
     
@@ -65,19 +68,24 @@ export default function Sidebar() {
             </i>
         {!isNavOpen && <span className="ml-2">Chat</span>}
         </div>
-        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300" onClick={() => handleClickOption('/createProduct')}>
-            <i className={"text-xl min-w-[3rem] text-center"}>
-                <PlusIcon className="size-6" />
-            </i>
-        {!isNavOpen && <span className="ml-2">Add Product</span>}
-        </div>
-        <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
-            <i className={"text-xl min-w-[3rem] text-center"}>
-                <TrashIcon className="size-6" />
-            </i>
-        {!isNavOpen && <span className="ml-2">Delete Product</span>}
-        </div>
+
+        {user.role === "admin" &&
+        <>
+            <div className="flex items-center py-2 cursor-pointer hover:text-gray-300" onClick={() => handleClickOption('/createProduct')}>
+                <i className={"text-xl min-w-[3rem] text-center"}>
+                    <PlusIcon className="size-6" />
+                </i>
+            {!isNavOpen && <span className="ml-2">Add Product</span>}
+            </div>
+            <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
+                <i className={"text-xl min-w-[3rem] text-center"}>
+                    <TrashIcon className="size-6" />
+                </i>
+            {!isNavOpen && <span className="ml-2">Delete Product</span>}
+            </div>
+        </>
         
+        }
     </div>
 
     <hr className="border-gray-700 w-[calc(100%)]" />
