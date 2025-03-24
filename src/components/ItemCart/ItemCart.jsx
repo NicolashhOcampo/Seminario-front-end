@@ -17,7 +17,7 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
     }
 
   return (
-    <div className="h-30 w-9/10 border-b border-gray-300  flex items-between justify-start gap-4 p-4 ">
+    <div className="h-30 w-9/10 border-b border-gray-300  flex items-between justify-start gap-4 p-4 last:border-b-0">
         {/* Imagen del producto */}
         <div className="w-40 h-full flex items-center justify-center">
         <img
