@@ -8,10 +8,10 @@ import config from "@/config/app.config";
 import Spinner from "../Spinner/Spinner";
 
 export default function Sidebar() {
-    const {user, fetchUser, loading} = useUser()
+    const {user, setUser, fetchUser, loading} = useUser()
 
-    const userNickName = loading? "Usuario" : user.nickName;
-    const userRole = loading? "Invitado" : user.role;
+    const userNickName = !user? "Usuario" : user.nickName;
+    const userRole = !user? "Invitado" : user.role;
 
     const [isNavOpen, setIsNavOpen] = useState(true);
     const router = useRouter()
@@ -28,6 +28,7 @@ export default function Sidebar() {
         credentials: 'include'
     });
     fetchUser();
+    setUser(null)
     router.push('/login')
   }
 
@@ -111,7 +112,7 @@ export default function Sidebar() {
             </div>
         }
         <button
-            onClick={() => handleLogout()}
+            onClick={handleLogout}
             className="absolute right-8 cursor-pointer flex items-center justify-center gap-1"
         >
         <i className="transition-transform duration-200">
