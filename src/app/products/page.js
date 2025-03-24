@@ -107,7 +107,8 @@ export default function Page() {
   }; */
   const handleClickProduct = (id) => {
     console.log("ID: ", id)
-    router.push(`/products/${id}`)
+    console.log(searchParams.toString())
+    router.push(`/products/${id}?${searchParams.toString()}`)
   }
 
 
