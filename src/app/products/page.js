@@ -8,6 +8,7 @@ import { useUser } from "@/context/UserContext"
 import config from "@/config/app.config";
 import { useSearchParams } from "next/navigation";
 import io from "socket.io-client";
+import Pagination from "@/components/Pagination/Pagination";
 
 const socket = io(config.urlHost)
 
@@ -17,13 +18,20 @@ export default function Page() {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [pagination, setPagination] = useState({});
   const searchParams = useSearchParams();
 
   const limit = searchParams.get("limit") || 10;
   const page = searchParams.get("page") || 1;
   const sort = searchParams.get("sort") || "asc";
-  const query = searchParams.get("category") || "";
-  const value = searchParams.get("value") || "";
+  const category = searchParams.get("category") || "";
+  const search = searchParams.get("search") || "";
+
+  const buildPageLink = (newPage) => {
+    const params = new URLSearchParams(searchParams);
+    params.set("page", newPage);
+    return `/products?${params.toString()}`;
+  };
 
   useEffect(() => {
       const fetchProducts = async () => {
@@ -32,14 +40,14 @@ export default function Page() {
           url.searchParams.append("limit", limit);
           url.searchParams.append("page", page);
           url.searchParams.append("sort", sort);
-          if (query) url.searchParams.append("query", query);
-          if (value) url.searchParams.append("value", value);
+          if (category) url.searchParams.append("category", category);
+          if (search) url.searchParams.append("search", search);
   
           const productsRes = await fetch(url, {
             method: "GET",
             credentials: "include",
           });
-  
+          
           if (!productsRes.ok) {
             if(productsRes.status === 401) {
               router.push("/login");
@@ -49,7 +57,19 @@ export default function Page() {
           }
   
           const productsData = await productsRes.json();
+
           setProducts(productsData.payload);
+          setPagination({
+            totalPages: productsData.totalPages,
+            prevPage: productsData.prevPage,
+            nextPage: productsData.nextPage,
+            hasPrevPage: productsData.hasPrevPage,
+            hasNextPage: productsData.hasNextPage,
+            totalDocs: productsData.totalDocs,
+            prevLink: productsData.hasPrevPage ? buildPageLink(productsData.prevPage) : null,
+            nextLink: productsData.hasNextPage ? buildPageLink(productsData.nextPage) : null,
+            page: productsData.page,
+          });
         } catch (err) {
           setError(err.message);
         } finally {
@@ -62,7 +82,7 @@ export default function Page() {
       fetchUser()
 
       socket.on("updateProducts", (updatedProducts) => {
-        setProducts(updatedProducts);
+        fetchProducts();
       })
 
       return () => {
@@ -93,8 +113,9 @@ export default function Page() {
 
   return (
     <>
-      <div className="w-full pt-8 flex justify-center">
+      <div className="w-full pt-8 flex flex-col items-center mb-20">
         <ProductContainer products={products} onClickProduct={handleClickProduct} />
+        <Pagination page={pagination.page} prevLink={pagination.prevLink} nextLink={pagination.nextLink} />
       </div>
     </>
   );

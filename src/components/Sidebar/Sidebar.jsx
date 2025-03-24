@@ -27,7 +27,6 @@ export default function Sidebar() {
         method: "GET",
         credentials: 'include'
     });
-    fetchUser();
     setUser(null)
     router.push('/login')
   }

@@ -2,6 +2,7 @@
 
 import config from '@/config/app.config';
 import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 import io from 'socket.io-client';
 
 const socket = io(config.urlHost);
@@ -20,10 +21,12 @@ export default function DeleteProductForm() {
         socket.emit('deleteProduct', productId);
         setMessage(`Product ${productId} deleted successfully!`);
         setProductId('');
+        toast.success(`Product ${productId} deleted successfully!`);
     };
 
     return (
         <div className="max-w-md mx-auto mt-24 p-6 bg-white shadow-lg rounded-lg">
+            <Toaster position="bottom-right" reverseOrder={false}></Toaster>
             <h2 className="text-xl font-semibold text-gray-800 mb-4 text-center">Delete Product</h2>
             <p className="text-gray-600 text-center mb-4">Please enter the Product ID to delete it from the database.</p>
             <form onSubmit={handleDelete} className="space-y-4">

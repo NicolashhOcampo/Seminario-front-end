@@ -33,10 +33,6 @@ body{
   }
 }
 
-.material-symbols-outlined {
-  @apply cursor-pointer text-3xl;
-}
-
 @layer utilities {
   .text-shadow {
     text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.6);
