@@ -8,7 +8,7 @@ import { useEffect, useRef } from "react";
 import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar/Sidebar";
 
-const validPaths = ["/cart", "/products", "/chat", "/createProduct", "/profile"];
+const validPaths = ["/cart", "/products", "/chat", "/createProduct", "/deleteProduct", "/profile"];
 
 export default function RootLayout({ children }) {
 

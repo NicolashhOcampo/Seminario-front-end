@@ -77,7 +77,7 @@ export default function Sidebar() {
                 </i>
             {!isNavOpen && <span className="ml-2">Add Product</span>}
             </div>
-            <div className="flex items-center py-2 cursor-pointer hover:text-gray-300">
+            <div className="flex items-center py-2 cursor-pointer hover:text-gray-300" onClick={() => handleClickOption('/deleteProduct')}>
                 <i className={"text-xl min-w-[3rem] text-center"}>
                     <TrashIcon className="size-6" />
                 </i>

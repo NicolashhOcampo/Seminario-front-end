@@ -70,7 +70,7 @@ export default function CreateProductForm() {
         <input name="stock" type="number" value={formData.stock} onChange={handleChange} placeholder="Stock" className="w-full p-2 border rounded" required />
         <input name="category" value={formData.category} onChange={handleChange} placeholder="Category" className="w-full p-2 border rounded" required />
         <input type="file" multiple onChange={handleFileChange} className="w-full p-2 border rounded" />
-        <button type="submit" className="w-full bg-blue-500 text-white p-2 rounded">Create Product</button>
+        <button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 text-white p-2 rounded">Create Product</button>
       </form>
     </div>
   );

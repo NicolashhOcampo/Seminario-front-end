@@ -5,6 +5,7 @@ import { useUser } from "@/context/UserContext";
 import { useState, useEffect, useRef } from "react";
 import { PaperAirplaneIcon } from "@heroicons/react/24/outline";
 import Spinner from "../Spinner/Spinner";
+import config from "@/config/app.config";
 
 
 export default function Chat() {
@@ -16,6 +17,14 @@ export default function Chat() {
 
   useEffect(() => {
     if (messages.length > 0) {
+      const fetchChat = async () => {
+        const response = await fetch(`${config.urlHost}/api/user/${user.id}/chat`, {
+          method: "GET",
+          credentials: 'include'
+        });
+        const data = await response.json()
+        console.log(data)
+      }
       setLoading(false);
       const scrollToBottom = () => {
         messagesEndRef.current?.scrollTo({

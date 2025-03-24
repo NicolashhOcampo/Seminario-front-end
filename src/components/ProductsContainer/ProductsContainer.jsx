@@ -18,7 +18,10 @@ const ProductContainer = ({products, onClickProduct}) => {
                         title={product.title}
                         price={product.price}
                         onClick={() => onClickProduct(product._id)}
-                        onClickAdd={() => addToCart(product)}/>
+                        onClickAdd={() => {
+                            addToCart(product)
+                            toast.success("Producto agregado al carrito")
+                        }}/>
                 
                 )
             })}
