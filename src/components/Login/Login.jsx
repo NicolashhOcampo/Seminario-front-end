@@ -14,7 +14,7 @@ const Login = ({ email, setEmail, password, setPassword, handleSubmit, error }) 
                     value={email}
                     onChange={e => setEmail(e.target.value)}
                     required
-                    className="w-full bg-[#2c2c2c] text-white mb-4 p-[0.7rem] rounded-[0.3rem] border-none hover:border hover:border-solid hover:border-[rgba(0,212,255,0.8)] text-[1rem]"
+                    className="w-full bg-[#2c2c2c] text-white mb-4 p-[0.7rem] rounded-[0.3rem] border border-transparent hover:border hover:border-solid hover:border-[rgba(0,212,255,0.8)] text-[1rem]"
                 />
 
                 <label htmlFor="password" className="self-start text-base font-bold mb-[0.3rem]">Contraseña</label>
@@ -25,7 +25,7 @@ const Login = ({ email, setEmail, password, setPassword, handleSubmit, error }) 
                     value={password}
                     onChange={e => setPassword(e.target.value)}
                     required
-                    className="w-full bg-[#2c2c2c] text-white mb-4 p-[0.7rem] rounded-[0.3rem] border-none hover:border hover:border-solid hover:border-[rgba(0,212,255,0.8)] text-[1rem]"
+                    className="w-full bg-[#2c2c2c] text-white mb-4 p-[0.7rem] rounded-[0.3rem] border border-transparent hover:border hover:border-solid hover:border-[rgba(0,212,255,0.8)] text-[1rem]"
                 />
 
                 <div className={`${error ? "block" : "hidden"} text-[red] text-sm mx-auto my-2`}>
