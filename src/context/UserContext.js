@@ -47,24 +47,28 @@ export const UserProvider = ({ children }) => {
   }
 
   const fetchRegisterUser = async (data) => {
-    try {
-      const response = await fetch(`${config.urlHost}/api/auth/signup`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(data),
-        credentials: 'include',
-      });
-      if(!response.ok) {
-        throw new Error("Error al registrar")
+
+      try{
+
+        const response = await fetch(`${config.urlHost}/api/auth/signup`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+          credentials: 'include',
+        });
+
+        // if(!response.ok) {
+        //   console.log(response)
+        //   throw new Error("Error al registrar")
+        // }
+
+        return response
+      }
+      catch (e){
+          console.log(e)
       }
 
-      if(response.ok) {
-        router.push("/login")
-      }
-    }
-    catch (e){
-      console.log("Error: ", e.message)
-    }
+
   }
 
   useEffect(() => {

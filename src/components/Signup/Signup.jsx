@@ -1,11 +1,15 @@
 "use client";
 
 import { useUser } from '@/context/UserContext';
-import React from 'react'
+import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
+import toast, { Toaster } from 'react-hot-toast';
 
 export const Signup = () => {
-    const {register, handleSubmit, formState: { errors }} = useForm()
+    const router = useRouter()
+    const [error, setError] = useState("")
+    const {register, handleSubmit, clearErrors} = useForm()
     const {fetchRegisterUser} = useUser()
 
 
@@ -22,8 +26,6 @@ export const Signup = () => {
                     type={type}
                     name={id}
                     id={id}
-                    //value={email}
-                    //onChange={e => setEmail(e.target.value)}
                     required
                     className="w-full bg-[#2c2c2c] text-white mb-4 p-[0.7rem] rounded-[0.3rem] border border-transparent hover:border hover:border-solid hover:border-[rgba(0,212,255,0.8)] text-[1rem]"
                 />
@@ -31,15 +33,36 @@ export const Signup = () => {
             
         )
     }
-    const printE = async (data)=>{
-        console.log(errors)
-        console.log(data)
+    const handleSubmitResgister = async (data)=>{
+        try {
+            console.log("Submit")
+            const res = await fetchRegisterUser(data)
+
+
+            if(res.ok) {
+                router.push("/login")
+                return
+            }else{
+                setError("El Usuario ya se encuentra registrado")
+            }
+
+            
+        }catch(e){
+            console.log(e)
+        }
     }
+
+    useEffect(() => {
+        if (error){
+            toast.error(error)
+        }
+    }, [setError])
   return (
     <>
+                        <Toaster position="top-center" reverseOrder={false}></Toaster>
             <h2 className="text-[2rem] text-white mb-6 text-shadow text-lg font-bold">SignUp</h2>
             <form id="loginForm"
-                onSubmit={handleSubmit(fetchRegisterUser)}
+                onSubmit={handleSubmit(handleSubmitResgister)}
                 className="bg-[rgb(31,29,29)] w-2/5 p-8 grid grid-cols-2 gap-2 text-white rounded-md shadow-[0_4px_10px_rgba(0,0,0,0.3)]"
             >
 
@@ -53,8 +76,12 @@ export const Signup = () => {
                 
                 <InputForm type="password" id={"password"} label = "Contraseña" className={"col-span-full"}/>
 
-                {/* <div className={`${error ? "block" : "hidden"} text-[red] text-sm mx-auto my-2`}>
+                {error  && <div className={"col-span-full text-[red] text-sm mx-auto my-2"}>
                     {error}
+                </div>}
+
+                {/* <div className={`${errors ? "block" : "hidden"} text-[red] text-sm mx-auto my-2`}>
+                    {errors}
                 </div> */}
 
                 <button
