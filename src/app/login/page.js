@@ -9,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function Page() {
   const router = useRouter()
-  const {user, loading} = useUser()
+  const {user, loading, setUser} = useUser()
 
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -36,7 +36,9 @@ export default function Page() {
       if (!response.ok) throw new Error("Credenciales incorrectas");
       // const user = await response.json()
       // console.log("login: ", user)
-
+      //console.log("Response: ", await response.json())
+      const res = await response.json()
+      setUser(res.payload)
       router.push("/products"); // Redirige a /products
     } catch (err) {
       setError(err.message);

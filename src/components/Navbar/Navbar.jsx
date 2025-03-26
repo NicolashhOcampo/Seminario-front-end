@@ -1,10 +1,11 @@
 import { ShoppingBagIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 const Navbar = () => {
     const router = useRouter()
+    const searchParams = useSearchParams()
     const handleClick = ()=>{
-        router.push("/cart")
+        router.push(`/cart?${searchParams.toString()}`)
     }
 
     return (

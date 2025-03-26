@@ -1,13 +1,14 @@
 'use client'
 
 import { ArrowLeftEndOnRectangleIcon, Bars3Icon, ChatBubbleLeftRightIcon, ChevronLeftIcon, HomeIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import config from "@/config/app.config";
 import Spinner from "../Spinner/Spinner";
 
 export default function Sidebar() {
+    const searchParams = useSearchParams()
     const {user, setUser, fetchUser, loading} = useUser()
 
     const userNickName = !user? "Usuario" : user.nickName;
@@ -19,7 +20,7 @@ export default function Sidebar() {
 
 
   const handleClickOption = (redirect) => {
-    router.push(redirect)
+    router.push(`${redirect}?${searchParams.toString()}`)
   }
 
   const handleLogout = () => {

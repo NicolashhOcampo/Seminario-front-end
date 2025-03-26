@@ -34,13 +34,41 @@ export const UserProvider = ({ children }) => {
       //setError(err.message);
       setUser(null)
       console.log("Error:", err.message)
-      if(pathname !== "/login"){
-        router.push("/login")
-      }
+
+      // console.log(pathname)
+      // if(pathname !== "/login" || pathname !== "/signup"){
+      //   console.log("Al login desde: ", pathname)
+      //   router.push("/login")
+      // }
     }
     finally {
       setLoading(false)
     }
+  }
+
+  const fetchRegisterUser = async (data) => {
+
+      try{
+
+        const response = await fetch(`${config.urlHost}/api/auth/signup`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+          credentials: 'include',
+        });
+
+        // if(!response.ok) {
+        //   console.log(response)
+        //   throw new Error("Error al registrar")
+        // }
+
+        return response
+      }
+      catch (e){
+          console.log(e)
+      }
+
+
   }
 
   useEffect(() => {
@@ -50,7 +78,7 @@ export const UserProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, fetchUser, setUser, loading }}>
+    <UserContext.Provider value={{ user, fetchUser, fetchRegisterUser, setUser, loading }}>
       {children}
     </UserContext.Provider>
   );

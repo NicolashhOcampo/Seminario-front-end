@@ -6,9 +6,9 @@ export const ProductDetail = ({ product, addProduct }) => {
   const [activeImg, setActiveImg] = useState(product.thumbnails[0])
 
   return (
-    <div className="mt-20 flex flex-col md:flex-row gap-8 p-6">
+    <div className="mt-20 ml-20 w-8/10 flex flex-col md:flex-row gap-8 p-6">
       {/* Contenedor de imágenes */}
-      <div className="md:w-1/2 p-4 border rounded-lg shadow-lg">
+      <div className="md:w-1/2 p-4 w-9/10 border rounded-lg shadow-lg">
         <div className="flex gap-4">
           {/* Miniaturas */}
           <ul className="flex flex-col gap-3">
@@ -54,7 +54,7 @@ export const ProductDetail = ({ product, addProduct }) => {
         {/* Botón de agregar al carrito */}
         <button
           onClick={addProduct}
-          className="w-full p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform"
+          className="w-50 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform"
         >
           Agregar al carrito
         </button>
