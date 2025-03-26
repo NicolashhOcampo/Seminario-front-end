@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const Login = ({ email, setEmail, password, setPassword, handleSubmit, error }) => {
     return (
         <>
@@ -44,9 +46,10 @@ const Login = ({ email, setEmail, password, setPassword, handleSubmit, error }) 
                 </a>
 
                 <div className="flex justify-center w-full mt-6">
-                    <a href="/auth/github">
-                        <img src="/github.png" className="w-[100px] h-[100px] cursor-pointer transition-transform duration-[0.3s] ease-[ease-in-out] hover:scale-110" alt="github" />
-                    </a>
+                <Link href="/google"  >
+                        <img src="/google.png" className="w-[100px] h-[100px] cursor-pointer transition-transform duration-[0.3s] ease-[ease-in-out] hover:scale-110" alt="github" />
+                </Link>
+                   
                 </div>
             </form>
         </>
