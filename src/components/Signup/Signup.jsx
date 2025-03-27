@@ -8,7 +8,6 @@ import toast, { Toaster } from 'react-hot-toast';
 
 export const Signup = () => {
     const router = useRouter()
-    const [error, setError] = useState("")
     const {register, handleSubmit, clearErrors} = useForm()
     const {fetchRegisterUser} = useUser()
 
@@ -43,23 +42,16 @@ export const Signup = () => {
                 router.push("/login")
                 return
             }else{
-                setError("El Usuario ya se encuentra registrado")
+                toast.error("El usuario ya se encuentra registrado", { duration: 2000 })
             }
 
-            
         }catch(e){
             console.log(e)
         }
     }
-
-    useEffect(() => {
-        if (error){
-            toast.error(error)
-        }
-    }, [setError])
   return (
     <>
-                        <Toaster position="top-center" reverseOrder={false}></Toaster>
+            <Toaster position="top-center" className="z-200" reverseOrder={false}></Toaster>
             <h2 className="text-[2rem] text-white mb-6 text-shadow text-lg font-bold">SignUp</h2>
             <form id="loginForm"
                 onSubmit={handleSubmit(handleSubmitResgister)}
@@ -76,9 +68,9 @@ export const Signup = () => {
                 
                 <InputForm type="password" id={"password"} label = "Contraseña" className={"col-span-full"}/>
 
-                {error  && <div className={"col-span-full text-[red] text-sm mx-auto my-2"}>
+                {/* {error  && <div className={"col-span-full text-[red] text-sm mx-auto my-2"}>
                     {error}
-                </div>}
+                </div>} */}
 
                 {/* <div className={`${errors ? "block" : "hidden"} text-[red] text-sm mx-auto my-2`}>
                     {errors}
