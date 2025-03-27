@@ -31,7 +31,7 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
         <div className="flex flex-col justify-between">
             <p className="text-lg font-semibold text-gray-800">{item.title}</p>
         
-            <div className="flex border w-30 border-gray-300 items-center justify-between gap-4 mt-2">
+            <div className="flex border w-30 border-gray-300 items-center justify-between mt-2">
                 {/* Botón de restar */}
                 <button
                 onClick={handleClickReduce}
