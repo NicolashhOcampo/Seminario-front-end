@@ -7,7 +7,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
   const [activeImg, setActiveImg] = useState(product.thumbnails[0])
 
   return (
-    <div className='flex flex-col min-h-screen'>
+    <div className='flex flex-col min-h-screen p-10'>
       <div className="mt-20 ml-20 w-8/10 flex flex-col md:flex-row gap-8 p-6">
         {/* Contenedor de imágenes */}
         <div className="md:w-1/2 p-4 w-9/10 border rounded-lg shadow-lg">

@@ -28,7 +28,7 @@ export default function Page() {
 
   return (
     <>
-      <div className="w-full pt-8 flex flex-col items-center mb-20">
+      <div className="w-full pt-15 flex flex-col items-center mb-20">
         <ProductContainer products={products} onClickProduct={handleClickProduct} />
         <Pagination page={pagination.page} prevLink={pagination.prevLink} nextLink={pagination.nextLink} />
       </div>
