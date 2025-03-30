@@ -6,13 +6,16 @@ import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
 import Pagination from "@/components/Pagination/Pagination";
 import { useProducts } from "@/hooks/useProducts";
-
+import { useConsult } from "@/hooks/useConsult";
 
 
 export default function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const {products, loading, pagination} = useProducts()
+  const { id } = searchParams;
+
+  const { consultsLogs } = useConsult(id);
 
   const handleClickProduct = (id) => {
     console.log("ID: ", id)

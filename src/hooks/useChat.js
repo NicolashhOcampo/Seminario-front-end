@@ -8,7 +8,7 @@ import { io } from "socket.io-client";
 export function useChat() {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
-  const { user } = useUser() 
+  const { user } = useUser()
 
   useEffect(() => {
     const socketInstance = io(config.urlHost, {

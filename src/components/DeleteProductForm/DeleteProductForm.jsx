@@ -3,9 +3,7 @@
 import config from '@/config/app.config';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import io from 'socket.io-client';
-
-const socket = io(config.urlHost);
+import socket from '@/utils/socket';
 
 export default function DeleteProductForm() {
     const [productId, setProductId] = useState('');

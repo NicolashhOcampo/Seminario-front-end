@@ -5,11 +5,10 @@ import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext"
 import config from "@/config/app.config";
 import { useSearchParams } from "next/navigation";
-import io from "socket.io-client";
+import socket from "@/utils/socket";
 import Pagination from "@/components/Pagination/Pagination";
 
 export function useProducts () {
-    const socket = io(config.urlHost)
     
     const router = useRouter();
     const { fetchUser } = useUser();
@@ -127,9 +126,7 @@ export function useProducts () {
         catch (err){
             console.log(err.message)
             router.push("/products")
-        }
-        
-        
+        }  
     }
 
     return {products, pagination, loading, fetchProductById}
