@@ -6,6 +6,8 @@ const ConsultContainer = ({ consultations, productId }) => {
     const [question, setQuestion] = useState("");
     const { sendConsult } = useConsult();
 
+    if (!consultations) return
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!question.trim()) return;
@@ -14,8 +16,8 @@ const ConsultContainer = ({ consultations, productId }) => {
     };
 
     return (
-        <div className="bg-white shadow-md rounded-lg p-4 mt-8">
-            <div className="w-full max-w-2xl p-4 rounded-lg bg-white">
+        <div className="bg-white shadow-md rounded-lg p-4 mt-8 w-6/10">
+            <div className="w-full p-4 rounded-lg bg-white">
                 <p className="text-black text-lg font-semibold mb-2">Pregúntale al vendedor</p>
                 <form onSubmit={handleSubmit} className="flex flex-col gap-3">
                     <textarea
@@ -35,7 +37,7 @@ const ConsultContainer = ({ consultations, productId }) => {
                 </form>
             </div>
 
-            <h3 className="text-lg font-semibold mb-4">Preguntas y Respuestas</h3>
+            <h3 className="text-lg font-semibold mb-4 w-auto">Preguntas y Respuestas</h3>
             {consultations.map((consult, index) => (
                 <ConsultItem
                     key={index}
