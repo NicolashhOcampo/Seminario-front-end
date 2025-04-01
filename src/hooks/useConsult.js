@@ -9,13 +9,13 @@ export function useConsult(productId) {
     useEffect(() => {
         if (!productId) return;
 
-        /* const fetchConsults = () => {
+        const fetchConsults = () => {
             console.log("Consultas para el producto:", productId);
             socket.emit("consultsLogs", { pid: productId });
         }
         if (socket.connected) {
             fetchConsults();
-        }  */
+        } 
 
         socket.on("connect", () => console.log("Conetado!!"));
 
@@ -25,12 +25,12 @@ export function useConsult(productId) {
         });
 
         return () => {
-            socket.disconnect();
+            socket.off();
         };
     }, [productId]);
 
     const sendConsult = (consult, productId) => {
-        console.log("Enviando nueva consulta:", consult);
+        console.log("Enviando nueva consulta:", consult, "con pid: ", productId);
         socket.emit("newConsult", { consult, pid: productId });
     };
 

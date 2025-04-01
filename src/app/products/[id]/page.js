@@ -34,7 +34,7 @@ export default function Page() {
 
 
         fetchProductById(id).then(product => setProduct(product))
-        fetchConsultatios()
+        //fetchConsultatios()
     }, [id])
     
    console.log(product)
@@ -45,7 +45,6 @@ export default function Page() {
             <ProductDetail product={product} addProduct={() => addToCart(product)} />
             <div className="flex justify-center w-full min-h-[40vh]">
                 <ConsultContainer consultations={consultsLogs} productId={id} />
-                <button onClick={fetchConsultatios}>Obtener mensajes</button>
             </div>
         </>
         

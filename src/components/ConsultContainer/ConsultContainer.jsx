@@ -4,13 +4,13 @@ import ConsultItem from "@/components/ConsultItem/ConsultItem";
 
 const ConsultContainer = ({ consultations, productId }) => {
     const [question, setQuestion] = useState("");
-    const { sendConsult } = useConsult();
+    const { sendConsult } = useConsult(productId);
 
     if (!consultations) return
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        if (!question.trim()) return;
+        if (!question) return;
         sendConsult(question, productId);
         setQuestion("");
     };
