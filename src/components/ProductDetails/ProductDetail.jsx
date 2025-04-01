@@ -62,9 +62,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
           </button>
         </div>
       </div>
-      <div className="mt-8 flex-grow min-h-[40vh]">
-        <ConsultContainer consultations={consultations} productId={productId} />
-      </div>
+      
     </div>
   )
 }

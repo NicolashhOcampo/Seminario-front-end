@@ -9,16 +9,15 @@ export function useConsult(productId) {
     useEffect(() => {
         if (!productId) return;
 
-        const fetchConsults = () => {
+        /* const fetchConsults = () => {
             console.log("Consultas para el producto:", productId);
             socket.emit("consultsLogs", { pid: productId });
-        };
-
+        }
         if (socket.connected) {
             fetchConsults();
-        } 
+        }  */
 
-        socket.on("connect", fetchConsults);
+        socket.on("connect", () => console.log("Conetado!!"));
 
         socket.on("consults", (data) => {
             console.log("Consultas recibidas:", data);
@@ -26,15 +25,14 @@ export function useConsult(productId) {
         });
 
         return () => {
-            socket.off("connect", fetchConsults);
-            socket.off("consults");
+            socket.disconnect();
         };
     }, [productId]);
 
-    const sendConsult = (consult) => {
+    const sendConsult = (consult, productId) => {
         console.log("Enviando nueva consulta:", consult);
         socket.emit("newConsult", { consult, pid: productId });
     };
 
-    return { consultsLogs, sendConsult };
+    return { consultsLogs, sendConsult,  setConsults };
 }
