@@ -31,7 +31,7 @@ export function useConsult(productId) {
         };
     }, [productId]);
 
-    const sendConsult = (consult) => {
+    const sendConsult = (consult, productId) => {
         console.log("Enviando nueva consulta:", consult);
         socket.emit("newConsult", { consult, pid: productId });
     };

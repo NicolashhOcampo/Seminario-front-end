@@ -43,7 +43,7 @@ export default function CreateProductForm() {
     const uploadData = new FormData();
     formData.thumbnails.forEach((file) => uploadData.append('thumbnails', file));
     
-    const res = await fetch(`${config.urlHost}/api/viewsproducts/upload`, {
+    const res = await fetch(`${config.urlHost}/api/products/upload`, {
       method: 'POST',
       body: uploadData,
       credentials: 'include',
