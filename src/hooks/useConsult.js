@@ -25,12 +25,12 @@ export function useConsult(productId) {
         });
 
         return () => {
-            socket.disconnect();
+            socket.off();
         };
     }, [productId]);
 
     const sendConsult = (consult, productId) => {
-        console.log("Enviando nueva consulta:", consult);
+        console.log("Enviando nueva consulta:", consult, "con pid: ", productId);
         socket.emit("newConsult", { consult, pid: productId });
     };
 
