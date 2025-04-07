@@ -56,7 +56,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
 
           {/* Botón de agregar al carrito */}
           <button onClick={addProduct}
-            className="flex flex-row justify-center items-center w-50 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform"
+            className="flex flex-row justify-center items-center w-50 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform cursor-pointer"
           >Agregar al carrito
             <PlusIcon className="w-6 h-6 ml-2" />
           </button>

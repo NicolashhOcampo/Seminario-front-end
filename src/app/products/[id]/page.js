@@ -33,14 +33,11 @@ export default function Page() {
         fetchProductById(id).then(product => setProduct(product))
         //fetchConsultatios()
     }, [id])
-    
-   console.log(product)
-   console.log(consultsLogs)
 
     return (
         <>
             <ProductDetail product={product} addProduct={() => addToCart(product)} />
-            <div className="flex justify-center w-full min-h-[40vh]">
+            <div className="flex justify-center w-full min-h-[40vh] mb-20">
                 <ConsultContainer consultations={consultsLogs} productId={id} />
             </div>
         </>

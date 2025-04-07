@@ -1,15 +1,22 @@
 import { ArrowTurnDownRightIcon } from "@heroicons/react/24/outline";
+import AnswerConsult from "../AnswerConsult/AnswerConsult";
+import { useUser } from "@/context/UserContext";
 
-const ConsultItem = ({ question, answer, date }) => {
+const ConsultItem = ({ id, question, answer, date, isLast, productId, answerQuery }) => {
+
+  const { user } = useUser()
+    const handleAnswerSubmit = (answerConsult) => {
+      answerQuery(answerConsult, id, productId)
+    }
     return (
-      <div className="border-b border-gray-200 py-4">
+      <div className={`${!isLast ? "border-b border-gray-200" : ""} py-4`}>
         {/* Pregunta */}
         <div className="flex justify-between items-center">
           <span className="text-sm font-semibold text-black">{question}</span>
         </div>
   
         {/* Respuesta */}
-        {answer && (
+        {answer ? (
           <div className="flex items-start gap-2 mt-2">
             <ArrowTurnDownRightIcon className="size-6" />
             <div>
@@ -19,6 +26,9 @@ const ConsultItem = ({ question, answer, date }) => {
               </div>
             </div>
           </div>
+        ) : (
+          user.role === "admin" &&
+          <AnswerConsult onSubmit={handleAnswerSubmit} />
         )}
       </div>
     );

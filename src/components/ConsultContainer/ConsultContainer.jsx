@@ -4,7 +4,7 @@ import ConsultItem from "@/components/ConsultItem/ConsultItem";
 
 const ConsultContainer = ({ consultations, productId }) => {
     const [question, setQuestion] = useState("");
-    const { sendConsult } = useConsult(productId);
+    const { sendConsult, consultsLogs, answerQuery } = useConsult(productId);
 
     if (!consultations) return
 
@@ -30,7 +30,7 @@ const ConsultContainer = ({ consultations, productId }) => {
                     ></textarea>
                     <button
                         type="submit"
-                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition"
+                        className="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition cursor-pointer"
                     >
                         Preguntar
                     </button>
@@ -41,9 +41,13 @@ const ConsultContainer = ({ consultations, productId }) => {
             {consultations.map((consult, index) => (
                 <ConsultItem
                     key={index}
+                    id={consult._id}
                     question={consult.question}
                     answer={consult.answer || null}
                     date={consult.date}
+                    isLast={index === consultations.length - 1}
+                    productId={productId}
+                    answerQuery={answerQuery}
                 />
             ))}
         </div>
