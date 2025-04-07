@@ -17,8 +17,6 @@ export function useConsult(productId) {
             fetchConsults();
         } 
 
-        socket.on("connect", () => console.log("Conetado!!"));
-
         socket.on("consults", (data) => {
             console.log("Consultas recibidas:", data);
             setConsults(data);

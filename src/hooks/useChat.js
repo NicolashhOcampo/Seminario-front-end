@@ -11,12 +11,12 @@ export function useChat() {
 
   useEffect(() => {
 
-    socket.on("connect", () => {
+    if(socket.connected) {
       console.log("Conectado al servidor de sockets: ", user);
       if (user?.nickName) {
-        socketInstance.emit("newUser", user.nickName);
+        socket.emit("newUser", user.nickName);
       }
-    });
+    }
 
     socket.on("messageLogs", (data) => {
       setMessages(data);
@@ -26,9 +26,8 @@ export function useChat() {
       console.log(`Usuario conectado: ${user}`);
     });
 
-    // Descionexion del socket cuando se desmonta el componente
     return () => {
-      socket.disconnect();
+      socket.off();
     };
   }, [user]);
 

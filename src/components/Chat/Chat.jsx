@@ -17,7 +17,8 @@ export default function Chat() {
 
   useEffect(() => {
     if (messages.length > 0) {
-      const fetchChat = async () => {
+      /* const fetchChat = async () => {
+        console.log(user)
         const response = await fetch(`${config.urlHost}/api/user/${user.id}/chat`, {
           method: "GET",
           credentials: 'include'
@@ -25,6 +26,7 @@ export default function Chat() {
         const data = await response.json()
         console.log(data)
       }
+      fetchChat() */
       setLoading(false);
       const scrollToBottom = () => {
         messagesEndRef.current?.scrollTo({
