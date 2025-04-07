@@ -72,7 +72,6 @@ export const UserProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    console.log("buscando user")
     fetchUser();
 
   }, []);

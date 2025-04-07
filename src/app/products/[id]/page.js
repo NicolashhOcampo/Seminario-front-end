@@ -30,9 +30,6 @@ export default function Page() {
 
     useEffect(() => {
         if (!id) return;    
-        
-
-
         fetchProductById(id).then(product => setProduct(product))
         fetchConsultatios()
     }, [id])

@@ -9,13 +9,13 @@ export function useConsult(productId) {
     useEffect(() => {
         if (!productId) return;
 
-        /* const fetchConsults = () => {
+        const fetchConsults = () => {
             console.log("Consultas para el producto:", productId);
             socket.emit("consultsLogs", { pid: productId });
         }
         if (socket.connected) {
             fetchConsults();
-        }  */
+        } 
 
         socket.on("connect", () => console.log("Conetado!!"));
 

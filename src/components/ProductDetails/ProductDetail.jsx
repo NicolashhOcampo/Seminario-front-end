@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import ConsultContainer from '../ConsultContainer/ConsultContainer'
+import { PlusIcon } from '@heroicons/react/24/outline'
 
 export const ProductDetail = ({ product, addProduct, consultations, productId }) => {
   if (!product) return null
@@ -43,7 +44,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
         </div>
 
         {/* Información del producto */}
-        <div className="md:w-1/2 flex flex-col justify-between">
+        <div className="md:w-1/2 flex flex-col justify-between items-center">
           <div>
             <h2 className="text-4xl font-bold mb-4">{product.title}</h2>
             <h3 className="text-xl font-semibold mb-2 text-gray-700">Descripción</h3>
@@ -54,11 +55,10 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
           </div>
 
           {/* Botón de agregar al carrito */}
-          <button
-            onClick={addProduct}
-            className="w-50 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform"
-          >
-            Agregar al carrito
+          <button onClick={addProduct}
+            className="flex flex-row justify-center items-center w-50 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform"
+          >Agregar al carrito
+            <PlusIcon className="w-6 h-6 ml-2" />
           </button>
         </div>
       </div>
