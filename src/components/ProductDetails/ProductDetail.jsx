@@ -8,11 +8,10 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
   const [activeImg, setActiveImg] = useState(product.thumbnails[0])
 
   return (
-    <div className='flex flex-col min-h-screen p-10'>
+    <div className='flex flex-col items-center w-full min-h-screen p-10'>
       <div className="mt-20 ml-20 w-8/10 flex flex-col md:flex-row gap-8 p-6">
         {/* Contenedor de imágenes */}
-        <div className="md:w-1/2 p-4 w-9/10 border rounded-lg shadow-lg">
-          <div className="flex gap-4">
+        <div className="w-full md:w-1/2 p-4 flex gap-4 border rounded-lg shadow-lg">
             {/* Miniaturas */}
             <ul className="flex flex-col gap-3">
               {product.thumbnails.map((img) => (
@@ -33,14 +32,13 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
             </ul>
 
             {/* Imagen principal */}
-            <div className="flex-1 flex items-center justify-center">
+            <div className="border rounded-lg w-full flex items-center justify-center overflow-hidden">
               <img
                 className="w-full h-96 object-contain rounded-lg"
                 src={`http://localhost:8080/public/images/${activeImg}`}
                 alt={product.title}
               />
             </div>
-          </div>
         </div>
 
         {/* Información del producto */}
@@ -56,7 +54,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
 
           {/* Botón de agregar al carrito */}
           <button onClick={addProduct}
-            className="flex flex-row justify-center items-center w-50 p-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform cursor-pointer"
+            className="flex  justify-between items-center w-50 p-3 px-4 bg-blue-600 text-white rounded-lg hover:bg-blue-700 active:scale-95 transition-transform cursor-pointer"
           >Agregar al carrito
             <PlusIcon className="w-6 h-6 ml-2" />
           </button>
