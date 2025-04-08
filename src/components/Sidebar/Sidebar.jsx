@@ -85,7 +85,6 @@ export default function Sidebar() {
             {!isNavOpen && <span className="ml-2">Delete Product</span>}
             </div>
         </>
-        
         }
     </div>
 

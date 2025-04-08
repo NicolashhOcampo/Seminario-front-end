@@ -41,7 +41,5 @@ export default function Page() {
                 <ConsultContainer consultations={consultsLogs} productId={id} />
             </div>
         </>
-        
-
     )
 }

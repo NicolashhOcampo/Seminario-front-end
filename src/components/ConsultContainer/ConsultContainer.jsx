@@ -4,7 +4,7 @@ import ConsultItem from "@/components/ConsultItem/ConsultItem";
 
 const ConsultContainer = ({ consultations, productId }) => {
     const [question, setQuestion] = useState("");
-    const { sendConsult, consultsLogs, answerQuery } = useConsult(productId);
+    const { sendConsult, answerQuery } = useConsult(productId);
 
     if (!consultations) return
 

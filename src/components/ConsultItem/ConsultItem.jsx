@@ -27,7 +27,7 @@ const ConsultItem = ({ id, question, answer, date, isLast, productId, answerQuer
             </div>
           </div>
         ) : (
-          user.role === "admin" &&
+          (user && user.role === "admin") &&
           <AnswerConsult onSubmit={handleAnswerSubmit} />
         )}
       </div>
