@@ -8,6 +8,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import ConsultContainer from "@/components/ConsultContainer/ConsultContainer";
 import config from "@/config/app.config";
+import Spinner from "@/components/Spinner/Spinner";
 
 export default function Page() {
     const { id } = useParams();
@@ -33,6 +34,8 @@ export default function Page() {
         fetchProductById(id).then(product => setProduct(product))
         //fetchConsultatios()
     }, [id])
+
+    if (!product) return (<Spinner />)
 
     return (
         <>
