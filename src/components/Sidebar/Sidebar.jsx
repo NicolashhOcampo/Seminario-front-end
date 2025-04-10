@@ -6,10 +6,12 @@ import { useState } from "react";
 import { useUser } from "@/context/UserContext";
 import config from "@/config/app.config";
 import Spinner from "../Spinner/Spinner";
+import { useCart } from "@/hooks/useCart";
 
 export default function Sidebar() {
     const searchParams = useSearchParams()
     const {user, setUser, fetchUser, loading} = useUser()
+    const {resetCart} = useCart()
 
     const userNickName = !user? "Usuario" : user.nickName;
     const userRole = !user? "Invitado" : user.role;
@@ -29,6 +31,7 @@ export default function Sidebar() {
         credentials: 'include'
     });
     setUser(null)
+    resetCart()
     router.push('/login')
   }
 

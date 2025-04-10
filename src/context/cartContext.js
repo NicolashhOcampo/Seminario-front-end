@@ -75,12 +75,12 @@ export function CartProvider ({children}){
       setTotal(total)
     }
 
-    // useEffect(() => {
-    //   totalAmount()
-    // }, [cart])
+    const resetCart = () =>{
+      setCart([])
+    }
 
     return (
-        <CartContext.Provider value={{ cart, setCart, addToCart, reduceFromCart, removeFromCart, total, loading }}>
+        <CartContext.Provider value={{ cart, setCart, addToCart, reduceFromCart, removeFromCart, resetCart, total, loading }}>
           {children}
         </CartContext.Provider>
       );

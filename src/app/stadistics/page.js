@@ -19,6 +19,8 @@ export default function Page() {
             const dataFetch = await response.json();
             const receipts = dataFetch.payload;
 
+            console.log("receips: ", receipts)
+
             const map = new Map();
 
             // Arreglar las horas xd, se usa el sistema sueco para las fechas, pero hay que cambiarlo
@@ -36,6 +38,8 @@ export default function Page() {
 
             const labels = sorted.map(([day]) => day);
             const data = sorted.map(([_, total]) => total);
+
+            console.log("data: ", data)
 
             setChartData({
                 labels,
