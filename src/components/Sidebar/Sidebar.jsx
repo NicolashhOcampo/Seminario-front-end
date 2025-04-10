@@ -1,6 +1,6 @@
 'use client'
 
-import { ArrowLeftEndOnRectangleIcon, Bars3Icon, ChatBubbleLeftRightIcon, ChevronLeftIcon, HomeIcon, PlusIcon, TrashIcon } from "@heroicons/react/24/outline";
+import { ArrowLeftEndOnRectangleIcon, Bars3Icon, ChatBubbleLeftRightIcon, ChevronLeftIcon, HomeIcon, PlusIcon, PresentationChartLineIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { useUser } from "@/context/UserContext";
@@ -83,6 +83,13 @@ export default function Sidebar() {
                     <TrashIcon className="size-6" />
                 </i>
             {!isNavOpen && <span className="ml-2">Delete Product</span>}
+            </div>
+
+            <div className="flex items-center py-2 cursor-pointer hover:text-gray-300" onClick={() => handleClickOption('/stadistics')}>
+                <i className={"text-xl min-w-[3rem] text-center"}>
+                    <PresentationChartLineIcon className="size-6" />
+                </i>
+            {!isNavOpen && <span className="ml-2">Stadistics</span>}
             </div>
         </>
         }

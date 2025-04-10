@@ -6,10 +6,12 @@ import { CartContainer } from "@/components/CartContainer/CartContainer";
 import { DivideIcon } from "@heroicons/react/24/outline";
 import Spinner from "@/components/Spinner/Spinner";
 import config from "@/config/app.config";
+import { useUser } from "@/context/UserContext";
 
 
 export default function Page() {
   const { cart, total, loading} = useCart();
+  const { user } = useUser();
 
   if (loading) return (<Spinner />)
 
@@ -17,7 +19,7 @@ export default function Page() {
     console.log(cart)
     const response = await fetch(`${config.urlHost}/api/checkout`, {
       method: "POST",
-      body: JSON.stringify({ products: cart}),
+      body: JSON.stringify({ products: cart, uid: user.id}),
       headers: { "Content-Type": "application/json" },
       credentials: "include",
     })

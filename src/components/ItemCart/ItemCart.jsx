@@ -35,7 +35,7 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
                 {/* Botón de restar */}
                 <button
                 onClick={handleClickReduce}
-                className="px-3 py-1  rounded-lg hover:bg-red-600 active:scale-95 transition"
+                className="px-3 py-1  rounded-lg hover:bg-red-600 active:scale-95 transition cursor-pointer"
                 >
                 -
                 </button>
@@ -46,7 +46,7 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
                 {/* Botón de sumar */}
                 <button
                 onClick={handleClickAdd}
-                className = {`px-3 py-1  rounded-lg ${disabledAdd()? "text-gray-400" : "hover:bg-green-600 active:scale-95 transition"} `}
+                className = {`px-3 py-1  rounded-lg ${disabledAdd()? "text-gray-400" : "hover:bg-green-600 active:scale-95 transition cursor-pointer"} `}
                 disabled = {disabledAdd()}
                 >
                 +
@@ -57,7 +57,7 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
 
         
         <div className='flex flex-col justify-between items-center ml-auto'>
-            <TrashIcon onClick={onClickDelete} className='w-10 px-2 py-2 ml-auto  rounded-lg hover:bg-red-600' />
+            <TrashIcon onClick={onClickDelete} className='w-10 px-2 py-2 ml-auto  rounded-lg hover:bg-red-600 cursor-pointer' />
             <p className="justify-self-end self-end  text-lg font-semibold text-gray-800">${item.quantity * item.price}</p>
         </div>
         
