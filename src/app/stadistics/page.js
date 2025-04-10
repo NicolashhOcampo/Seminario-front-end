@@ -2,12 +2,13 @@
 
 import { useEffect, useState } from "react";
 import Spinner from "@/components/Spinner/Spinner";
-import SellChart from "@/components/SellChart/SellChart";
 import config from "@/config/app.config";
+import { SellChartV2 } from "@/components/SellChart/SellChartV2";
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
-    const [chartData, setChartData] = useState([]);
+    const [labels, setLabels] = useState([])
+    const [values, setvalues] = useState([])
 
     useEffect(() => {
         const fetchReceipts = async () => {
@@ -19,17 +20,20 @@ export default function Page() {
             const dataFetch = await response.json();
             const receipts = dataFetch.payload;
 
-            console.log("receips: ", receipts)
+            const dates = receipts.map(f => {
+                return f.date
+            })
+
+
 
             const map = new Map();
 
             // Arreglar las horas xd, se usa el sistema sueco para las fechas, pero hay que cambiarlo
             receipts.forEach((r) => {
-                const day = new Date(r.date).toLocaleDateString("sv-SE", {
-                    timeZone: "America/Argentina/Buenos_Aires",
-                });
+                const day = new Date(r.date).toLocaleDateString("es-AR")
                 map.set(day, (map.get(day) || 0) + r.totalMount);
             });
+
 
             // map.entries() devuelve un iterable de pares [clave, valor]. Ej: ["clave1", "valor1"], en nuestro caso [fecha, total]. Ej: [2025-04-09, 10000]
             // Array.from() convierte el iterable en un array. Ej: [["clave1", "valor1"], ["clave2", "valor2"]]
@@ -37,23 +41,12 @@ export default function Page() {
             const sorted = Array.from(map.entries()).sort(([a], [b]) => new Date(a).getTime() - new Date(b).getTime());
 
             const labels = sorted.map(([day]) => day);
+            setLabels(labels)
             const data = sorted.map(([_, total]) => total);
+            setvalues(data)
 
-            console.log("data: ", data)
-
-            setChartData({
-                labels,
-                datasets: [
-                    {
-                        label: "Ventas por día",
-                        data,
-                        fill: true,
-                        borderColor: "#4bb543",
-                        backgroundColor: "rgba(75, 181, 67, 0.2)",
-                        tension: 0.3,
-                    },
-                ],
-            });
+            console.log("dates: ", dates)
+            
 
             setLoading(false);
         };
@@ -66,7 +59,10 @@ export default function Page() {
     return (
         <div className="mt-15 flex flex-col items-center w-full p-8">
             <h2 className="text-xl font-semibold">Ventas diarias</h2>
-            <SellChart data={chartData} />
+            <div className="flex flex-col items-center w-full p-2">
+                <SellChartV2 labels={labels} values={values}/>
+            </div>
+            
         </div>
     );
 }
