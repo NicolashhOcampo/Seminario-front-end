@@ -1,12 +1,9 @@
-import ProductContainer from "@/components/ProductsContainer/ProductsContainer";
-import Spinner from "@/components/Spinner/Spinner";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useUser } from "@/context/UserContext"
 import config from "@/config/app.config";
 import { useSearchParams } from "next/navigation";
 import socket from "@/utils/socket";
-import Pagination from "@/components/Pagination/Pagination";
 
 export function useProducts () {
     
@@ -78,29 +75,16 @@ export function useProducts () {
         fetchProducts();
         fetchUser()
 
-        socket.on("updateProducts", (updatedProducts) => {
-        fetchProducts();
+        socket.on("updateProducts", () => {
+            fetchProducts();
         })
 
         return () => {
-        socket.off("updateProducts");
+            socket.off("updateProducts");
         }
     }, [router, searchParams]);
 
 
-    // Función para actualizar el product
-    /* const updateFilters = (newFilters) => {
-    const currentParams = new URLSearchParams(window.location.search);
-    Object.entries(newFilters).forEach(([key, value]) => {
-        if (value) {
-            currentParams.set(key, value);
-        } else {
-            currentParams.delete(key);
-        }
-    });
-
-    router.push(`/products?${currentParams.toString()}`, { scroll: false });
-    }; */
 
     const fetchProductById = async (id) => {
         const url = new URL(`${config.urlHost}/api/products/${id}`);

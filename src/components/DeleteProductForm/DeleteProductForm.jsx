@@ -3,23 +3,44 @@
 import config from '@/config/app.config';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
-import socket from '@/utils/socket';
 
 export default function DeleteProductForm() {
     const [productId, setProductId] = useState('');
     const [message, setMessage] = useState('');
 
-    const handleDelete = (e) => {
+    const handleDelete = async (e) => {
         e.preventDefault();
         if (!productId) {
             setMessage('Please enter a Product ID');
             return;
         }
+
+        const url = new URL(`${config.urlHost}/api/products/${productId}`);
+        try{
+            const response = await fetch(url, {
+                method: "DELETE",
+                credentials: "include"
+            })
+
+            if(!response.ok){
+                if (response.status === 500){
+                    throw new Error("Error al eliminar el producto")
+                }
+
+                throw new Error("Error en el servidor")
+            }
+
+            toast.success(`Product ${productId} deleted successfully!`);
+            setProductId('');
+            setMessage("")
+            
+        }
+        catch (err){
+            console.log(err.message)
+        }  
         
-        socket.emit('deleteProduct', productId);
-        setMessage(`Product ${productId} deleted successfully!`);
-        setProductId('');
-        toast.success(`Product ${productId} deleted successfully!`);
+        
+       
     };
 
     return (
