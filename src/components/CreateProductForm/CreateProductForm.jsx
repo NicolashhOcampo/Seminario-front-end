@@ -43,7 +43,7 @@ export default function CreateProductForm() {
     const uploadData = new FormData();
     formData.thumbnails.forEach((file) => uploadData.append('thumbnails', file));
     
-    const res = await fetch(`${config.urlHost}/api/products/upload`, {
+    /* const res = await fetch(`${config.urlHost}/api/products/upload`, {
       method: 'POST',
       body: uploadData,
       credentials: 'include',
@@ -52,18 +52,46 @@ export default function CreateProductForm() {
     if (!res.ok) {
       console.error('Error uploading images');
       return;
+    } */
+    
+    //const { filenames } = await res.json();
+
+    const newFormData = new FormData();
+    newFormData.append('title', formData.title);
+    newFormData.append('description', formData.description);
+    newFormData.append('code', formData.code);
+    newFormData.append('price', formData.price);
+    newFormData.append('status', formData.status);
+    newFormData.append('stock', formData.stock);
+    newFormData.append('category', formData.category);
+
+    formData.thumbnails.forEach((file) => newFormData.append('thumbnails', file));
+        
+    console.log("formData: ", newFormData)
+ 
+
+
+    try{
+      const response = await fetch(`${config.urlHost}/api/products/`, {
+        method: 'POST',
+        body: newFormData,
+        credentials: 'include',
+      });
+  
+  
+  
+      if(!response.ok) {
+          throw new Error("Error al cargar el producto")
+      }else{
+        toast.success('Producto creado correctamente');
+      }
+
+
+    }catch(e){
+      console.log(e.message)
+      toast.error('Error al crear el producto');
     }
     
-    const { filenames } = await res.json();
-    
-    const product = {
-      ...formData,
-      price: Number(formData.price),
-      stock: Number(formData.stock),
-      thumbnails: filenames,
-    };
-
-    socket.emit('createProduct', product);
 
     setFormData({
       title: '',
@@ -76,7 +104,7 @@ export default function CreateProductForm() {
       thumbnails: [],
     });
 
-    toast.success('Product created successfully');
+    
   };
 
   return (
