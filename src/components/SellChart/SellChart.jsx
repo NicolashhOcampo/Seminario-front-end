@@ -26,7 +26,7 @@ ChartJS.register(
 export default function SellChart({data}) {
     return (
         <div className="w-full flex justify-center p-8">
-            <div className="w-[80vw] bg-white p-4 rounded-xl shadow-2xl">
+            <div className="w-3/4 bg-white p-4 rounded-xl shadow-2xl">
                 <Line
                     data={data}
                     options={{
@@ -50,7 +50,6 @@ export default function SellChart({data}) {
                             }
                         }
                     }}
-                    height={75}
                 />
             </div>
         </div>

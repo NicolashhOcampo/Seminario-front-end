@@ -103,7 +103,7 @@ export function useProducts () {
     }; */
 
     const fetchProductById = async (id) => {
-        const url = new URL(`http://localhost:8080/api/products/${id}`);
+        const url = new URL(`${config.urlHost}/api/products/${id}`);
         try{
             const response = await fetch(url, {
                 method: "GET",

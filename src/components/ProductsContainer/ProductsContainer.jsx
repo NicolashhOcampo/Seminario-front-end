@@ -3,6 +3,7 @@
 import { useCart } from "@/hooks/useCart";
 import ProductCard from "../ProductCard/ProductCard";
 import toast, { Toaster } from "react-hot-toast";
+import config from "@/config/app.config";
 
 const ProductContainer = ({products, onClickProduct}) => {
 
@@ -14,7 +15,7 @@ const ProductContainer = ({products, onClickProduct}) => {
             <Toaster position="bottom-right" reverseOrder={false}></Toaster>
             {products.map(product =>{
                 return (
-                        <ProductCard key={product._id} className="w-50 border-black" img={`http://localhost:8080/public/images/${product.thumbnails[0]}`} 
+                        <ProductCard key={product._id} className="w-50 border-black" img={`${config.urlHost}/public/images/${product.thumbnails[0]}`} 
                         title={product.title}
                         price={product.price}
                         onClick={() => onClickProduct(product._id)}

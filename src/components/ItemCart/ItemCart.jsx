@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import {TrashIcon} from "@heroicons/react/24/outline"
+import config from '@/config/app.config'
 
 export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
 
@@ -22,7 +23,7 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
         <div className="w-40 h-full flex items-center justify-center">
         <img
             className="w-full h-full object-contain"
-            src={`http://localhost:8080/public/images/${item.thumbnails[0]}`}
+            src={`${config.urlHost}/public/images/${item.thumbnails[0]}`}
             alt={item.title}
         />
         </div>

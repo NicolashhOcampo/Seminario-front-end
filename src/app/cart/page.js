@@ -15,17 +15,27 @@ export default function Page() {
 
   if (loading) return (<Spinner />)
 
-  const handlePay = async () => {
-    console.log(cart)
-    const response = await fetch(`${config.urlHost}/api/checkout`, {
-      method: "POST",
-      body: JSON.stringify({ products: cart, uid: user.id}),
-      headers: { "Content-Type": "application/json" },
-      credentials: "include",
-    })
-    const data = await response.json()
-    window.location.href = data.payment.url
-  };
+    const handlePay = async () => {
+      try {
+        const response = await fetch(`${config.urlHost}/api/checkout`, {
+          method: "POST",
+          body: JSON.stringify({ products: cart, uid: user.id }),
+          headers: { "Content-Type": "application/json" },
+          credentials: "include",
+        });
+    
+        const data = await response.json();
+    
+        console.log(data)
+        if (data.payment?.url) {
+          window.location.href = data.payment.url;
+        } else {
+          console.error("No se pudo obtener la URL de Stripe.");
+        }
+      } catch (error) {
+        console.error("Error en handlePay:", error);
+      }
+    };
 
   return (
     <div className="w-full flex flex-col items-center gap-8 p-8 ">

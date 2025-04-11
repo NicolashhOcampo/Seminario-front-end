@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import ConsultContainer from '../ConsultContainer/ConsultContainer'
 import { PlusIcon } from '@heroicons/react/24/outline'
+import config from '@/config/app.config'
 
 export const ProductDetail = ({ product, addProduct, consultations, productId }) => {
   if (!product) return null
@@ -23,7 +24,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
                   onClick={() => setActiveImg(img)}
                 >
                   <img
-                    src={`http://localhost:8080/public/images/${img}`}
+                    src={`${config.urlHost}/public/images/${img}`}
                     alt={product.title}
                     className="w-full h-full object-contain"
                   />
@@ -35,7 +36,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
             <div className="border rounded-lg w-full flex items-center justify-center overflow-hidden">
               <img
                 className="w-full h-96 object-contain rounded-lg"
-                src={`http://localhost:8080/public/images/${activeImg}`}
+                src={`${config.urlHost}/public/images/${activeImg}`}
                 alt={product.title}
               />
             </div>

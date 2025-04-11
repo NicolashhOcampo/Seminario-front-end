@@ -6,7 +6,7 @@ import { useEffect } from "react";
 export default function Page() {
     const fetchGoogle = async () => {
       const loginWithGoogle = () => {
-          window.location.href = 'http://localhost:8080';
+          window.location.href = `${config.urlHost}`;
       };
         loginWithGoogle()
       }
