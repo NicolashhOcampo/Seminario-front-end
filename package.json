@@ -12,10 +12,7 @@
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@heroicons/react": "^2.2.0",
-<<<<<<< HEAD
-=======
     "@mui/material": "^7.0.2",
->>>>>>> 2f62d474be1e9b03fa9901a5f69a0239a2d10d24
     "@mui/x-charts": "^7.28.0",
     "@tailwindcss/vite": "^4.0.13",
     "framer-motion": "^12.5.0",
