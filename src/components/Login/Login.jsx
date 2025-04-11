@@ -56,7 +56,7 @@ const Login = ({ email, setEmail, password, setPassword, handleSubmit, error }) 
                 <Link href="/google"
                     className="w-full mt-6 flex items-center justify-between h-10 p-1 px-4 rounded-3xl border border-white text-base font-bold text-white  cursor-pointer transition-all duration-[0.3s] ease-[ease-in-out] hover:border-[rgba(0,212,255,0.8)] "
                 >
-                    Iniciar con Google <img src="/google.png" className=" h-full cursor-pointer transition-transform duration-[0.3s] ease-[ease-in-out] hover:scale-110" alt="github" />
+                    Iniciar con Google <img src="/google.png" className=" h-full cursor-pointer" alt="google" />
                 </Link>
                    
                 </div>
