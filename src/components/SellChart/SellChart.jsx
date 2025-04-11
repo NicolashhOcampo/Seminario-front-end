@@ -1,57 +1,34 @@
-"use client";
+import React from 'react'
+ import { LineChart } from '@mui/x-charts';
+ 
+ 
+ 
+ export const SellChart = ({labels, values }) => {
+ 
+   if (!labels || !values) {
+     console.log("labels: ", labels)
+     console.log("values: ", values)
+     return
+   }
+ 
+   const valores = [10, 15, 8, 20, 17];
+   console.log(labels)
+   return (
+     <div className='w-7/10 flex items-center justify-center'>
+       <LineChart
+       xAxis={[
+         {
+           scaleType: 'band',
+           data: labels,
+           label: "Fecha",
+         },
+       ]}
+       series={[{ data: values, label: "Ventas" }]}
+       grid={{"horizontal": true}}
+       height={300}
+       margin={{ top: 40, bottom: 50, left: 70, right: 30 }}
+     />
+     </div>
 
-import { Line } from "react-chartjs-2";
-import {
-    Chart as ChartJS,
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Tooltip,
-    Legend,
-    TimeScale,
-} from "chart.js";
-import 'chartjs-adapter-date-fns';
-
-ChartJS.register(
-    CategoryScale,
-    LinearScale,
-    PointElement,
-    LineElement,
-    Tooltip,
-    Legend,
-    TimeScale
-);
-
-export default function SellChart({data}) {
-    return (
-        <div className="w-full flex justify-center p-8">
-            <div className="w-3/4 bg-white p-4 rounded-xl shadow-2xl">
-                <Line
-                    data={data}
-                    options={{
-                        responsive: true,
-                        scales: {
-                            x: {
-                                type: "time",
-                                time: {
-                                    unit: "day",
-                                },
-                                title: {
-                                    display: true,
-                                    text: "Fecha",
-                                },
-                            },
-                            y: {
-                                title: {
-                                    display: true,
-                                    text: "Monto Total",
-                                }
-                            }
-                        }
-                    }}
-                />
-            </div>
-        </div>
-    );
-}
+   );
+ }

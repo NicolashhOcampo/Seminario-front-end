@@ -19,7 +19,7 @@
         "react-dom": "^19.0.0",
         "react-hook-form": "^7.54.2",
         "react-hot-toast": "^2.5.2",
-        "socket.io-client": "^4.8.1",
+        "socket.io-client": "^4.8.1"
       },
       "devDependencies": {
         "@eslint/eslintrc": "^3",
@@ -28,9 +28,9 @@
         "eslint": "^9",
         "eslint-config-next": "15.2.2",
         "postcss": "^8.5.3",
-        "tailwindcss": "^4.0.13",
-      },
-    },
+        "tailwindcss": "^4.0.13"
+      }
+    }
   },
   "packages": {
     "@alloc/quick-lru": ["@alloc/quick-lru@5.2.0", "", {}, "sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw=="],
@@ -1081,6 +1081,6 @@
 
     "@typescript-eslint/typescript-estree/fast-glob/glob-parent": ["glob-parent@5.1.2", "", { "dependencies": { "is-glob": "^4.0.1" } }, "sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow=="],
 
-    "@typescript-eslint/typescript-estree/minimatch/brace-expansion": ["brace-expansion@2.0.1", "", { "dependencies": { "balanced-match": "^1.0.0" } }, "sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA=="],
+    "@typescript-eslint/typescript-estree/minimatch/brace-expansion": ["brace-expansion@2.0.1", "", { "dependencies": { "balanced-match": "^1.0.0" } }, "sha512-XnAIvQ8eM+kC6aULx6wuQiwVsnzsi9d3WxzV3FpWTGA19F621kwdbsAcFKXgKUHZWsy+mY6iL1sHTxWEFCytDA=="]
   }
 }

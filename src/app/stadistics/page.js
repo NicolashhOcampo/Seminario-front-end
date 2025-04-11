@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Spinner from "@/components/Spinner/Spinner";
 import config from "@/config/app.config";
-import { SellChartV2 } from "@/components/SellChart/SellChartV2";
+import { SellChart } from "@/components/SellChart/SellChart";
 
 export default function Page() {
     const [loading, setLoading] = useState(true);
@@ -24,8 +24,6 @@ export default function Page() {
                 return f.date
             })
 
-
-
             const map = new Map();
 
             // Arreglar las horas xd, se usa el sistema sueco para las fechas, pero hay que cambiarlo
@@ -33,7 +31,6 @@ export default function Page() {
                 const day = new Date(r.date).toLocaleDateString("es-AR")
                 map.set(day, (map.get(day) || 0) + r.totalMount);
             });
-
 
             // map.entries() devuelve un iterable de pares [clave, valor]. Ej: ["clave1", "valor1"], en nuestro caso [fecha, total]. Ej: [2025-04-09, 10000]
             // Array.from() convierte el iterable en un array. Ej: [["clave1", "valor1"], ["clave2", "valor2"]]
@@ -47,7 +44,6 @@ export default function Page() {
 
             console.log("dates: ", dates)
             
-
             setLoading(false);
         };
 
@@ -57,12 +53,11 @@ export default function Page() {
     if (loading) return <Spinner />;
 
     return (
-        <div className="mt-15 flex flex-col items-center w-full p-8">
+        <div className="bg-gray-100 h-screen mt-15 flex flex-col items-center w-full p-8">
             <h2 className="text-xl font-semibold">Ventas diarias</h2>
-            <div className="flex flex-col items-center w-full p-2">
-                <SellChartV2 labels={labels} values={values}/>
+            <div className="bg-white flex flex-col items-center w-full p-2 shadow-2xl rounded-3xl">
+                <SellChart labels={labels} values={values}/>
             </div>
-            
         </div>
     );
 }
