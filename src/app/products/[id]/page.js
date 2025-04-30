@@ -17,17 +17,6 @@ export default function Page() {
     const {fetchProductById} = useProducts()
     const { consultsLogs, setConsults } = useConsult(id)
 
-    const fetchConsultatios = async() =>{
-        const response = await fetch(`${config.urlHost}/api/consults/firstConsults/${id}`,{
-            method: 'GET',
-            credentials: 'include'
-        })
-
-        const data = await response.json()
-        console.log("Data: ", data)
-        setConsults(data.payload)
-    }
-    
 
     useEffect(() => {
         if (!id) return;    

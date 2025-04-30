@@ -33,7 +33,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
             </ul>
 
             {/* Imagen principal */}
-            <div className="border rounded-lg w-full flex items-center justify-center overflow-hidden">
+            <div className=" w-full flex items-center justify-center overflow-hidden">
               <img
                 className="w-full h-96 object-contain rounded-lg"
                 src={`${config.urlHost}/public/images/${activeImg}`}
