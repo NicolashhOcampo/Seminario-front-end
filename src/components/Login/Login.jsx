@@ -41,9 +41,13 @@ const Login = ({ email, setEmail, password, setPassword, handleSubmit, error }) 
                     Iniciar Sesión
                 </button>
 
-                <a href="/signup" className="no-underline text-white text-[0.8rem] text-center transition-[color] duration-[0.2s] ease-[ease-in-out] cursor-pointer mt-4 hover:text-[#007acc]">
-                    Regístrate
-                </a>
+                <Link href="/forgotPassword"
+                    className=" mt-2 flex items-center justify-center h-10 p-1 px-4 text-[0.8rem] text-white  cursor-pointer transition-all duration-[0.3s] ease-[ease-in-out] hover:text-[#007acc] "
+                >
+                    Recuperar Contraseña 
+                </Link>
+
+                
 
                 <div className="flex flex-col justify-center w-full mt-6">
 
@@ -57,6 +61,10 @@ const Login = ({ email, setEmail, password, setPassword, handleSubmit, error }) 
                     className="w-full mt-6 flex items-center justify-between h-10 p-1 px-4 rounded-3xl border border-white text-base font-bold text-white  cursor-pointer transition-all duration-[0.3s] ease-[ease-in-out] hover:border-[rgba(0,212,255,0.8)] "
                 >
                     Iniciar con Google <img src="/google.png" className=" h-full cursor-pointer" alt="google" />
+                </Link>
+
+                <Link href="/signup" className="no-underline mt-6 font-bold text-white text-center transition-[color] duration-[0.2s] ease-[ease-in-out] cursor-pointer hover:text-[#007acc]">
+                    Regístrate
                 </Link>
                    
                 </div>
