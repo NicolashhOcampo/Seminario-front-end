@@ -9,7 +9,7 @@ import config from "@/config/app.config";
 
 
 export default function Chat() {
-  const { messages, sendMessage } = useChat();
+  const { messages, sendMessage, chats } = useChat();
   const [message, setMessage] = useState("");
   const { user, setUser } = useUser()
   const messagesEndRef = useRef(null);
@@ -36,7 +36,7 @@ export default function Chat() {
       };
       setTimeout(scrollToBottom, 100);
     }
-  }, [messages]);
+  }, [messages, chats]);
 
   if(loading) {
     return (
@@ -46,7 +46,7 @@ export default function Chat() {
 
   const handleSendMessage = () => {
     if (message.trim()) {
-      sendMessage(user.nickName, message);
+      sendMessage(message);
       setMessage("");
     }
   };
@@ -89,14 +89,14 @@ export default function Chat() {
 
               <div
                 className={`mb-2 flex flex-col ${
-                  msg.email === user.nickName
+                  msg.user === user.id
                     ? "items-end ml-10"
                     : "items-start mr-10"
                 }`}
               >
                 <div
                   className={`p-2 shadow-md text-white ${
-                    msg.email === user.nickName
+                    msg.user === user.id
                       ? "bg-blue-900 rounded-l-2xl rounded-tr-2xl"
                       : "bg-fuchsia-900 rounded-r-2xl rounded-tl-2xl"
                   }`}

@@ -1,13 +1,16 @@
-'use client'
-
-import Chat from "@/components/Chat/Chat";
+"use client"
+import { ChatView } from "@/components/Chat/ChatView";
+import { useChat } from "@/hooks/useChat";
+import { useEffect, useState } from "react";
 
 export default function ChatPage() {
+  
   return (
     <>
-      <div className="flex justify-center items-center min-h-screen">
-        <Chat />
+      <div className="mt-40">
+        <ChatView />
       </div>
+      
     </>
   );
 }
