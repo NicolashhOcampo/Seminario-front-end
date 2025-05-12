@@ -1,80 +1,62 @@
-'use client'
+'use client';
 
 import config from '@/config/app.config';
 import { usePathname, useRouter } from 'next/navigation';
 import { createContext, useContext, useState, useEffect } from 'react';
 
-
 const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
-  const [user, setUser] = useState( null )
+  const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const router = useRouter()
+  const router = useRouter();
   const pathname = usePathname();
 
   const fetchUser = async () => {
-    
     try {
-      setLoading(true)
-
+      setLoading(true);
       const response = await fetch(`${config.urlHost}/api/auth/current`, {
-        method: "GET",
-        headers: { "Content-Type": "application/json" },
+        method: 'GET',
+        headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
       });
 
-      if (!response.ok) throw new Error("Error al cargar usuario");
-      const user = await response.json()
-      //console.log("User:", user)
-      setUser(user)
-      
-      
-    } catch (err) {
-      //setError(err.message);
-      setUser(null)
-      console.log("Error:", err.message)
+      if (!response.ok) throw new Error('Error al cargar usuario');
 
-      // console.log(pathname)
-      // if(pathname !== "/login" || pathname !== "/signup"){
-      //   console.log("Al login desde: ", pathname)
-      //   router.push("/login")
-      // }
+      const user = await response.json();
+      setUser(user);
+    } catch (err) {
+      console.log('Error:', err.message);
+      setUser(null);
+    } finally {
+      setLoading(false);
     }
-    finally {
-      setLoading(false)
-    }
-  }
+  };
 
   const fetchRegisterUser = async (data) => {
+    try {
+      const response = await fetch(`${config.urlHost}/api/auth/signup`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
+        credentials: 'include',
+      });
 
-      try{
-
-        const response = await fetch(`${config.urlHost}/api/auth/signup`, {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(data),
-          credentials: 'include',
-        });
-
-        // if(!response.ok) {
-        //   console.log(response)
-        //   throw new Error("Error al registrar")
-        // }
-
-        return response
-      }
-      catch (e){
-          console.log(e)
-      }
-
-
-  }
+      return response;
+    } catch (e) {
+      console.log(e);
+    }
+  };
 
   useEffect(() => {
     fetchUser();
-
   }, []);
+
+  useEffect(() => {
+    if (!loading && !user && pathname !== '/login' && pathname !== '/signup') {
+      router.push('/login');
+    }
+  }, [loading, user, pathname, router]);
 
   return (
     <UserContext.Provider value={{ user, fetchUser, fetchRegisterUser, setUser, loading }}>

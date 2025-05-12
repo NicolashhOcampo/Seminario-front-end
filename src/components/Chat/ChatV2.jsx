@@ -11,7 +11,6 @@ export const ChatV2 = ({ chat, onSend }) => {
     const { user } = useUser()
     const messagesEndRef = useRef(null);
 
-
     useEffect(() => {
         if (messages.length > 0) {
 
@@ -70,13 +69,13 @@ export const ChatV2 = ({ chat, onSend }) => {
                             )}
 
                             <div
-                                className={`mb-2 flex flex-col ${msg.user === user.id
+                                className={`mb-2 flex flex-col ${msg.user === user?.id
                                         ? "items-end ml-10"
                                         : "items-start mr-10"
                                     }`}
                             >
                                 <div
-                                    className={`p-2 shadow-md text-white ${msg.user === user.id
+                                    className={`p-2 shadow-md text-white ${msg.user === user?.id
                                             ? "bg-blue-900 rounded-l-2xl rounded-tr-2xl"
                                             : "bg-fuchsia-900 rounded-r-2xl rounded-tl-2xl"
                                         }`}

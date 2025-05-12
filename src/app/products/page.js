@@ -23,7 +23,7 @@ export default function Page() {
     router.push(`/products/${id}?${searchParams.toString()}`)
   }
 
-  if (loading) return <Spinner />;
+  if (loading || !products) return <Spinner />;
 
 
   return (

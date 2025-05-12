@@ -16,11 +16,11 @@ export function useChat() {
       console.log("Conectado al servidor de sockets: ", user);
       if (user?.id) {
         console.log("newUser")
-        socket.emit("newUser", user.id);
+        socket.emit("newUser", user?.id);
       }
 
       if (user?.role == "admin") {
-        socket.emit("newAdmin", user.id);
+        socket.emit("newAdmin", user?.id);
       }
     }
 
