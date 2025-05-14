@@ -113,6 +113,45 @@ export function useProducts() {
         }
     }
 
-    return { products, pagination, loading, fetchProductById }
+    const fetchCategories = async () => {
+
+        try {
+
+            const response = await fetch(`${config.urlHost}/api/category/`, {
+                method: 'GET',
+                credentials: 'include',
+            });
+            if (!response.ok) throw new Error("Error al buscar categorias")
+
+            const res = await response.json()
+            const categories = res.payload
+            console.log("categories: ", categories)
+
+            return categories
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
+    const createCategory = async (category) => {
+        try {
+
+            const response = await fetch(`${config.urlHost}/api/category/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ category }),
+                credentials: 'include',
+            });
+            if (!response.ok) throw new Error("Error al crear categorias")
+
+            return fetchCategories()
+        } catch (e) {
+            console.log(e)
+            throw new Error("Error al crear categorias")
+        }
+
+    }
+
+    return { products, pagination, loading, fetchProductById, createCategory, fetchCategories }
 }
 

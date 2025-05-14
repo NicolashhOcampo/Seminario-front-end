@@ -2,9 +2,11 @@
 
 import config from '@/config/app.config';
 import { TrashIcon } from '@heroicons/react/24/outline';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 import socket from '@/utils/socket';
+import { CreateCategoryModal } from './CreateCategoryModal';
+import { useProducts } from '@/hooks/useProducts';
 
 export default function CreateProductForm() {
   const [formData, setFormData] = useState({
@@ -17,6 +19,20 @@ export default function CreateProductForm() {
     category: '',
     thumbnails: [],
   });
+  const [categories, setCategories] = useState([])
+  const [openCreateCategory, setOpenCreateCategory] = useState(false)
+  const {fetchCategories} = useProducts()
+
+
+
+
+  useEffect(() => {
+
+
+    fetchCategories().then(data => setCategories(data))
+  }, [])
+
+
 
   // Agregar nuevas imágenes
   const handleFileChange = (e) => {
@@ -39,10 +55,10 @@ export default function CreateProductForm() {
   // Enviar formulario
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
+
     const uploadData = new FormData();
     formData.thumbnails.forEach((file) => uploadData.append('thumbnails', file));
-    
+
     /* const res = await fetch(`${config.urlHost}/api/products/upload`, {
       method: 'POST',
       body: uploadData,
@@ -53,7 +69,7 @@ export default function CreateProductForm() {
       console.error('Error uploading images');
       return;
     } */
-    
+
     //const { filenames } = await res.json();
 
     const newFormData = new FormData();
@@ -66,32 +82,32 @@ export default function CreateProductForm() {
     newFormData.append('category', formData.category);
 
     formData.thumbnails.forEach((file) => newFormData.append('thumbnails', file));
-        
+
     console.log("formData: ", newFormData)
- 
 
 
-    try{
+
+    try {
       const response = await fetch(`${config.urlHost}/api/products/`, {
         method: 'POST',
         body: newFormData,
         credentials: 'include',
       });
-  
-  
-  
-      if(!response.ok) {
-          throw new Error("Error al cargar el producto")
-      }else{
+
+
+
+      if (!response.ok) {
+        throw new Error("Error al cargar el producto")
+      } else {
         toast.success('Producto creado correctamente');
       }
 
 
-    }catch(e){
+    } catch (e) {
       console.log(e.message)
       toast.error('Error al crear el producto');
     }
-    
+
 
     setFormData({
       title: '',
@@ -104,7 +120,7 @@ export default function CreateProductForm() {
       thumbnails: [],
     });
 
-    
+
   };
 
   return (
@@ -112,7 +128,7 @@ export default function CreateProductForm() {
       <Toaster position="bottom-right" reverseOrder={false}></Toaster>
       <h2 className="text-xl font-bold mb-4">Add Product</h2>
       <form onSubmit={handleSubmit} className="space-y-4">
-      <input name="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} placeholder="Title" className="w-full p-2 border rounded" required />
+        <input name="title" value={formData.title} onChange={(e) => setFormData({ ...formData, title: e.target.value })} placeholder="Title" className="w-full p-2 border rounded" required />
         <input name="description" value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Description" className="w-full p-2 border rounded" required />
         <input name="code" value={formData.code} onChange={(e) => setFormData({ ...formData, code: e.target.value })} placeholder="Code" className="w-full p-2 border rounded" required />
         <input name="price" type="number" value={formData.price} onChange={(e) => setFormData({ ...formData, price: e.target.value })} placeholder="Price" className="w-full p-2 border rounded" required />
@@ -127,7 +143,22 @@ export default function CreateProductForm() {
         </div>
 
         <input name="stock" type="number" value={formData.stock} onChange={(e) => setFormData({ ...formData, stock: e.target.value })} placeholder="Stock" className="w-full p-2 border rounded" required />
-        <input name="category" value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} placeholder="Category" className="w-full p-2 border rounded" required />
+        <div className='w-full flex gap-2 items-center relative'>
+          <select value={formData.category} onChange={(e) => setFormData({ ...formData, category: e.target.value })} className="flex-1 p-2 border rounded" required>
+            <option value={""}>Seleccione una Categoria</option>
+            {categories.map(category => (
+              <option key={category._id} value={category._id}>{category.name}</option>
+            ))}
+          </select>
+          <button
+            type='button'
+            className="size-8 text-2xl flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white p-2 rounded-full"
+            onClick={() => setOpenCreateCategory(prev => !prev)}
+          ><img src="/add.svg" alt="+" />
+          </button>
+          {openCreateCategory && <CreateCategoryModal setCategories={setCategories} closeModal={()=>setOpenCreateCategory(false)}/>}
+        </div>
+
 
         <div className="space-y-2">
           {formData.thumbnails.map((file, index) => (
