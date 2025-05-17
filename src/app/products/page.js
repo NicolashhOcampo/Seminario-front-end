@@ -7,6 +7,7 @@ import { useSearchParams } from "next/navigation";
 import Pagination from "@/components/Pagination/Pagination";
 import { useProducts } from "@/hooks/useProducts";
 import { useConsult } from "@/hooks/useConsult";
+import Link from "next/link";
 
 
 export default function Page() {
@@ -28,9 +29,10 @@ export default function Page() {
 
   return (
     <>
-      <div className="w-full pt-15 flex flex-col items-center mb-20">
+      <div className="w-full pt-5 flex flex-col items-center pb-10">
         <ProductContainer products={products} onClickProduct={handleClickProduct} />
         <Pagination page={pagination.page} prevLink={pagination.prevLink} nextLink={pagination.nextLink} />
+        <Link href={"/chat"} className=" bg-blue-600 hover:bg-blue-700 text-white rounded-3xl h-10 w-15 fixed flex items-center justify-center right-4 bottom-4">CHAT</Link>
       </div>
     </>
   );

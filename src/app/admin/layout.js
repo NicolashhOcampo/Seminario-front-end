@@ -1,7 +1,6 @@
 'use client';
 
 import { CartProvider } from "@/context/cartContext";
-import "./globals.css";
 import { UserProvider, useUser } from "@/context/UserContext";
 import Navbar from "@/components/Navbar/Navbar";
 import { useEffect, useRef } from "react";
@@ -31,16 +30,10 @@ export default function RootLayout({ children }) {
       <body>
         <UserProvider>
           <CartProvider>
-          {isvalidPath&& (
-            <>
               <Navbar />
-              {/* <Sidebar  /> */}
-            </>
+              <Sidebar  />
             
-          )}
-            <main className="w-full h-full">
               {children}
-            </main>
             
           </CartProvider>
         </UserProvider>

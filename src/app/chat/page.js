@@ -4,13 +4,12 @@ import { useChat } from "@/hooks/useChat";
 import { useEffect, useState } from "react";
 
 export default function ChatPage() {
-  
+
   return (
-    <>
-      <div className="mt-40">
-        <ChatView />
-      </div>
-      
-    </>
+    <div >
+      <ChatView />
+    </div>
+
+
   );
 }
