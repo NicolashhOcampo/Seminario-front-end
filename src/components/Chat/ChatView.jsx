@@ -14,8 +14,8 @@ export const ChatView = () => {
 
   return (
     <>
-      <div className="flex justify-center items-start h-full p-4">
-        <div className="flex flex-col gap-3 bg-white p-4 rounded-xl shadow-md w-40">
+      <div className="h-full flex justify-center items-start p-4">
+        <div className="flex flex-col h-full justify-start gap-3 bg-white p-4 rounded-xl shadow-md w-40">
           <h2 className="text-xl font-semibold mb-2 text-gray-800">Chats</h2>
           {chats.map((chat, index) => (
             <div

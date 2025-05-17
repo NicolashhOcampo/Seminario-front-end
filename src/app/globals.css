@@ -7,16 +7,17 @@
   font-family: Arial, sans-serif;
 }
 
+html {
+  height: 100%;
+}
+
 body {
   min-height: 100vh;
+  height: 100%;
   background-color: #f3f4f6;
 }
 
-main {
 
-  padding-top: 4rem;
-  min-height: 100vh;
-}
 
 :root {
   --background: #ffffff;

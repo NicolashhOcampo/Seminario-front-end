@@ -38,7 +38,7 @@ export default function RootLayout({ children }) {
             </>
             
           )}
-            <main className="w-full h-full">
+            <main className="w-full h-full pt-15">
               {children}
             </main>
             
