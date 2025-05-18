@@ -48,7 +48,7 @@ export default function Page() {
   if (loading || user) return (<Spinner />)
 
   return (
-    <div className="h-screen w-screen bg-[linear-gradient(130deg,rgb(2,0,36)_0%,rgb(110,32,255)_35%,rgb(0,212,255)_100%)] flex flex-col items-center justify-center">          
+    <div className="h-screen w-screen absolute top-0 bg-[linear-gradient(130deg,rgb(2,0,36)_0%,rgb(110,32,255)_35%,rgb(0,212,255)_100%)] flex flex-col items-center justify-center">          
         <Login email={email} setEmail={setEmail} password={password} setPassword={setPassword} handleSubmit={handleSubmit} error={error}/>
     </div>
   );
