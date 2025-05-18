@@ -1,5 +1,5 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Spinner from "../Spinner/Spinner";
 import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
@@ -24,13 +24,11 @@ const InputField = ({ name, value, label, placeholder, edit, onChange }) => {
 };
 
 const Profile = ({ user }) => {
-  if(!user) {
-    return (
-      <Spinner />
-    )
+  if (!user) {
+    return <Spinner />;
   }
 
-  const router = useRouter()
+  const router = useRouter();
 
   const [edit, setEdit] = useState(false);
   const [formData, setFormData] = useState({
@@ -38,13 +36,37 @@ const Profile = ({ user }) => {
     lastName: user.lastName || "",
     email: user.email || "",
     nickName: user.nickName || "",
+    country: user.country || "",
   });
-  const {fetchUser} = useUser()
+  const { fetchUser } = useUser();
 
-  
   // Manejar cambios en los inputs
   const handleInputChange = (name, value) => {
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleAvatarUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append("avatar", file);
+    formData.append("userId", user.id);
+
+    try {
+      const res = await fetch(`${config.urlHost}/api/users/avatar/${user.id}`, {
+        method: "PUT",
+        body: formData,
+        credentials: "include",
+      });
+
+      if (!res.ok) throw new Error("Error uploading avatar");
+
+      await fetchUser();
+      
+    } catch (err) {
+      console.error("Avatar upload failed:", err);
+    }
   };
 
   // Guardar cambios en el backend
@@ -53,7 +75,7 @@ const Profile = ({ user }) => {
       const response = await fetch(`${config.urlHost}/api/users/`, {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({userId: user.id, ...formData}),
+        body: JSON.stringify({ userId: user.id, ...formData }),
         credentials: "include",
       });
 
@@ -61,44 +83,58 @@ const Profile = ({ user }) => {
         throw new Error("Error updating user");
       }
 
-      const data= await response.json()
-      const newUser = data.message
+      const data = await response.json();
+      const newUser = data.message;
 
-      console.log("New User: ", newUser)
-      
-      fetchUser()
+      console.log("New User: ", newUser);
+
+      fetchUser();
       setEdit(false);
 
-      router.push(`/profile/${formData.nickName}`)
-
+      router.push(`/profile/${formData.nickName}`);
     } catch (error) {
       console.error("Update failed:", error);
     }
-
-  
   };
 
   return (
     <div className="mt-20 max-w-2xl mx-auto bg-white shadow-md rounded-lg relative">
       {/* Edit Button */}
       <button
-        onClick={() => (edit ? handleSaveChanges() : setEdit(true))}
-        className="absolute top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600"
+        onClick={() => {edit ? handleSaveChanges() : setEdit(true)
+          console.log('valor del edit', edit)
+        }}
+        className="absolute top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 z-20"
+        title="Edit Profile"
       >
         {edit ? "Save Changes" : "Edit"}
       </button>
 
       {/* Profile Card */}
-      <div className="rounded-lg flex items-center space-x-4 p-4">
-        <img
-          className="w-16 h-16 rounded-full object-cover"
-          src={
-            "https://th.bing.com/th/id/R.a579c301d250c490662bbdfb16c405e9?rik=qWtc4VPeSEZ7qw&pid=ImgRaw&r=0"
-          }
-          alt="Profile"
-        />
+      <div className="rounded-lg flex items-center space-x-4 p-4 relative">
+        <div className="relative w-24 h-24 rounded-full group">
+          <img
+            className="w-full h-full rounded-full object-cover"
+            src={`${config.urlHost}/public/images/users/${user.avatar}`}
+            alt="Profile"
+          />
+
+          {/* Overlay + input file */}
+          <label className="absolute inset-0 bg-black bg-opacity-10 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-80 transition-opacity cursor-pointer text-white text-sm">
+            Change Avatar
+            <input
+              type="file"
+              accept="image/*"
+              className="hidden"
+              onChange={handleAvatarUpload}
+            />
+          </label>
+        </div>
+
         <div>
-          <h2 className="text-lg font-semibold">{formData.nickName || "Usuario"}</h2>
+          <h2 className="text-lg font-semibold">
+            {formData.nickName || "Usuario"}
+          </h2>
           <p className="text-sm text-gray-500">{formData.email || "Email"}</p>
         </div>
       </div>
@@ -131,7 +167,7 @@ const Profile = ({ user }) => {
         />
         <InputField
           name="country"
-          value="Argentina"
+          value={formData.country}
           label="Country"
           placeholder="Your Country"
           edit={edit}

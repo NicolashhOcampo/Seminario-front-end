@@ -23,7 +23,7 @@ export const ItemCart = ({item, onClickReduce, onClickAdd, onClickDelete}) => {
         <div className="w-40 h-full flex items-center justify-center">
         <img
             className="w-full h-full object-contain"
-            src={`${config.urlHost}/public/images/${item.thumbnails[0]}`}
+            src={`${config.urlHost}/public/images/products/${item.thumbnails[0]}`}
             alt={item.title}
         />
         </div>

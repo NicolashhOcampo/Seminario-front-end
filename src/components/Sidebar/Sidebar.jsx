@@ -110,7 +110,7 @@ export default function Sidebar() {
         
         {!isNavOpen && (
             <img
-                src="https://th.bing.com/th/id/R.a579c301d250c490662bbdfb16c405e9?rik=qWtc4VPeSEZ7qw&pid=ImgRaw&r=0"
+                src={`${config.urlHost}/public/images/users/${user.avatar}`}
                 className="w-10 h-10 rounded-full"
             />
         )}

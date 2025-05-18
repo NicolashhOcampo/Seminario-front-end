@@ -24,7 +24,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
                   onClick={() => setActiveImg(img)}
                 >
                   <img
-                    src={`${config.urlHost}/public/images/${img}`}
+                    src={`${config.urlHost}/public/images/products/${img}`}
                     alt={product.title}
                     className="w-full h-full object-contain"
                   />
@@ -36,7 +36,7 @@ export const ProductDetail = ({ product, addProduct, consultations, productId })
             <div className=" w-full flex items-center justify-center overflow-hidden">
               <img
                 className="w-full h-96 object-contain rounded-lg"
-                src={`${config.urlHost}/public/images/${activeImg}`}
+                src={`${config.urlHost}/public/images/products/${activeImg}`}
                 alt={product.title}
               />
             </div>

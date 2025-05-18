@@ -21,8 +21,6 @@ export default function RootLayout({ children }) {
   //   console.log("layout cargado")
   // }, [user]);
 
-
-
   return (
     <html lang="en">
       <head>
@@ -36,9 +34,7 @@ export default function RootLayout({ children }) {
               <Navbar />
               <Sidebar  />
             </>
-            
           )}
-
             {children}
           </CartProvider>
         </UserProvider>
