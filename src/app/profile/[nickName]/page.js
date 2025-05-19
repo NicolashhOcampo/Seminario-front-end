@@ -16,7 +16,7 @@ export default function Page() {
 
     return (
         <>
-            <Profile user={user} />
+            <Profile user={user} fetchUser={fetchUser} />
         </>
     )
 }

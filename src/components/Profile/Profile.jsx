@@ -1,7 +1,6 @@
 import { PencilSquareIcon } from "@heroicons/react/24/outline";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Spinner from "../Spinner/Spinner";
-import { useUser } from "@/context/UserContext";
 import { useRouter } from "next/navigation";
 import config from "@/config/app.config";
 
@@ -23,7 +22,7 @@ const InputField = ({ name, value, label, placeholder, edit, onChange }) => {
   );
 };
 
-const Profile = ({ user }) => {
+const Profile = ({ user, fetchUser }) => {
   if (!user) {
     return <Spinner />;
   }
@@ -38,7 +37,6 @@ const Profile = ({ user }) => {
     nickName: user.nickName || "",
     country: user.country || "",
   });
-  const { fetchUser } = useUser();
 
   // Manejar cambios en los inputs
   const handleInputChange = (name, value) => {
@@ -62,7 +60,7 @@ const Profile = ({ user }) => {
 
       if (!res.ok) throw new Error("Error uploading avatar");
 
-      await fetchUser();
+      fetchUser();
       
     } catch (err) {
       console.error("Avatar upload failed:", err);
@@ -83,10 +81,7 @@ const Profile = ({ user }) => {
         throw new Error("Error updating user");
       }
 
-      const data = await response.json();
-      const newUser = data.message;
 
-      console.log("New User: ", newUser);
 
       fetchUser();
       setEdit(false);
