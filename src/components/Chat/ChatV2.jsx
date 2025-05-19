@@ -51,7 +51,7 @@ export const ChatV2 = ({ chat, onSend }) => {
 
 
     return (
-        <div className="max-w-lg mx-auto p-4 bg-white shadow-md rounded-lg">
+        <div className="max-w-lg h-full mx-auto p-4 bg-white shadow-md rounded-lg">
             <h2 className="text-xl font-semibold mb-4">Chat</h2>
 
             <div ref={messagesEndRef} className="h-64 overflow-y-auto border p-2 rounded-md">

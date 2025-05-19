@@ -14,6 +14,7 @@ export function useChat() {
 
     if (socket.connected) {
       console.log("Conectado al servidor de sockets: ", user);
+      if(!user) return
       if (user?.id) {
         console.log("newUser")
         socket.emit("newUser", user?.id);

@@ -15,8 +15,8 @@ export const ChatView = () => {
 
   return (
     <>
-      <div className="h-full flex justify-center items-start p-4">
-        <div className="flex flex-col h-full justify-start gap-3 bg-white p-4 rounded-xl shadow-md w-40">
+      <div className="h-full grid grid-cols-[auto_1fr] justify-center items-start p-4">
+        <div className="flex flex-col h-full justify-start gap-3 bg-white p-4 rounded-xl shadow-md w-60">
           <h2 className="text-xl font-semibold mb-2 text-gray-800">Chats</h2>
           {chats.map((chat, index) => (
             <LinkPreviewCard key={index} index={index} chat={chat} onClickChat={handleClickChat} />
@@ -24,7 +24,7 @@ export const ChatView = () => {
         </div>
 
         {activeChat && (
-          <div className="ml-6 flex-1">
+          <div className="ml-6 h-full bg-amber-400">
             <ChatV2 chat={chats[activeChat - 1]} onSend={sendMessage} />
           </div>
         )}
