@@ -28,7 +28,7 @@ export function useChat() {
     socket.on("clientChatsLogs", (data) => {
       console.log("Nuevo mensaje para cliente")
       const { mappedChats } = data
-      //console.log("Front chats: ", mappedChats)
+      console.log("Front chats: ", mappedChats)
       setChats([...mappedChats])
     });
 

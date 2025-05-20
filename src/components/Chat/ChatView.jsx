@@ -1,6 +1,6 @@
 import { useChat } from '@/hooks/useChat';
 import React, { useEffect, useState } from 'react'
-import { ChatV2 } from './ChatV2';
+import { Chat } from './Chat';
 import { LinkPreviewCard } from './LinkPreviewCard';
 
 export const ChatView = () => {
@@ -15,7 +15,7 @@ export const ChatView = () => {
 
   return (
     <>
-      <div className="h-full grid grid-cols-[auto_1fr] justify-center items-start p-4">
+      <div className="h-full grid gap-2 grid-cols-[auto_1fr] justify-center items-start p-4">
         <div className="flex flex-col h-full justify-start gap-3 bg-white p-4 rounded-xl shadow-md w-60">
           <h2 className="text-xl font-semibold mb-2 text-gray-800">Chats</h2>
           {chats.map((chat, index) => (
@@ -24,8 +24,8 @@ export const ChatView = () => {
         </div>
 
         {activeChat && (
-          <div className="ml-6 h-full bg-amber-400">
-            <ChatV2 chat={chats[activeChat - 1]} onSend={sendMessage} />
+          <div className=" h-full bg-amber-400">
+            <Chat chat={chats[activeChat - 1]} onSend={sendMessage} />
           </div>
         )}
       </div>
