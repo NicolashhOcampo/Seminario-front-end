@@ -11,60 +11,62 @@ export function useChat() {
   const { user } = useUser()
 
   useEffect(() => {
+  const handleConnect = () => {
+    console.log("Socket conectado:", socket.connected);
 
-    if (socket.connected) {
-      console.log("Conectado al servidor de sockets: ", user);
-      if(!user) return
-      if (user?.id) {
-        console.log("newUser")
-        socket.emit("newUser", user?.id);
-      }
+    if (!user) return;
 
-      if (user?.role == "admin") {
-        socket.emit("newAdmin", user?.id);
-      }
+    if (user.role === "admin") {
+      socket.emit("newAdmin", user.id);
+    } else {
+      socket.emit("newUser", user.id);
     }
+  };
 
-    socket.on("clientChatsLogs", (data) => {
-      console.log("Nuevo mensaje para cliente")
-      const { mappedChats } = data
-      console.log("Front chats: ", mappedChats)
-      setChats([...mappedChats])
-    });
+  if (socket.connected) {
+    handleConnect();
+  } else {
+    socket.on("connect", handleConnect);
+  }
 
-    socket.on("adminChatsLogs", (data) => {
-      console.log("Nuevos chats para el admin")
-      const { mappedChats } = data
-      console.log("Front chats: ", mappedChats)
-      setChats(prevChats => {
-        const updated = [...prevChats];
+  socket.on("clientChatsLogs", (data) => {
+    console.log("Nuevo mensaje para cliente");
+    const { mappedChats } = data;
+    setChats([...mappedChats]);
+  });
 
-        mappedChats.forEach(newChat => {
-          const index = updated.findIndex(c => c.chatID === newChat.chatID);
-          if (index !== -1) {
-            updated[index] = newChat; // reemplaza chat existente
-          } else {
-            updated.push(newChat); // agrega nuevo chat
-          }
-        });
+  socket.on("adminChatsLogs", (data) => {
+    console.log("Nuevos chats para el admin");
+    const { mappedChats } = data;
 
-        return updated;
+    setChats(prevChats => {
+      const updated = [...prevChats];
+
+      mappedChats.forEach(newChat => {
+        const index = updated.findIndex(c => c.chatID === newChat.chatID);
+        if (index !== -1) {
+          updated[index] = newChat;
+        } else {
+          updated.push(newChat);
+        }
       });
+
+      return updated;
     });
+  });
 
-    socket.on("userConnected", (user) => {
-      console.log(`Usuario conectado: ${user}`);
-    });
+  socket.on("userConnected", (user) => {
+    console.log(`Usuario conectado: ${user}`);
+  });
 
-    return () => {
-      socket.off();
-    };
-  }, [user]);
+  return () => {
+    socket.off("connect", handleConnect);
+    socket.off("clientChatsLogs");
+    socket.off("adminChatsLogs");
+    socket.off("userConnected");
+  };
+}, [user]);
 
-  useEffect(()=>{
-    console.log("Chats actualizados")
-    console.log(chats)
-  },[chats])
 
 
   const sendMessage = (message, chatID) => {
