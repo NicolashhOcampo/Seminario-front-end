@@ -14,13 +14,13 @@ const Navbar = () => {
 
     return (
         <div className="top-0 left-0 flex z-100 justify-between items-center w-full h-15 bg-[#f8f8f8] shadow-[0_2px_4px_rgba(0,0,0,0.1)] flex-wrap box-border px-5 py-2.5 fixed">
-            <Link href={`/profile/${user?.nickName}`}>
+            {user && <Link href={`/profile/${user?.nickName}`}>
                 <img
                     className="size-10 rounded-full object-cover"
                     src={`${config.urlHost}/public/images/users/${user?.avatar}`}
                     alt="Profile"
                 />
-            </Link>
+            </Link>}
 
             <h2 className="text-[#333] text-2xl font-bold m-0 pl-20">
                 <Link href={"/products"}>Products Store</Link>

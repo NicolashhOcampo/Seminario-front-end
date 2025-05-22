@@ -11,9 +11,8 @@ const InputField = ({ name, value, label, placeholder, edit, onChange }) => {
       <input
         type="text"
         placeholder={placeholder}
-        className={`p-2 border rounded-md text-gray-900 ${
-          edit ? "bg-white" : "bg-gray-100"
-        }`}
+        className={`p-2 border rounded-md text-gray-900 ${edit ? "bg-white" : "bg-gray-100"
+          }`}
         readOnly={!edit}
         value={value}
         onChange={(e) => onChange(name, e.target.value)}
@@ -22,7 +21,7 @@ const InputField = ({ name, value, label, placeholder, edit, onChange }) => {
   );
 };
 
-const Profile = ({ user, fetchUser }) => {
+const Profile = ({ user, fetchUser, onClickLogout }) => {
   if (!user) {
     return <Spinner />;
   }
@@ -61,7 +60,7 @@ const Profile = ({ user, fetchUser }) => {
       if (!res.ok) throw new Error("Error uploading avatar");
 
       fetchUser();
-      
+
     } catch (err) {
       console.error("Avatar upload failed:", err);
     }
@@ -93,10 +92,11 @@ const Profile = ({ user, fetchUser }) => {
   };
 
   return (
-    <div className="mt-20 max-w-2xl mx-auto bg-white shadow-md rounded-lg relative">
+    <div className="mt-20 py-4 max-w-2xl mx-auto bg-white shadow-md rounded-lg relative">
       {/* Edit Button */}
       <button
-        onClick={() => {edit ? handleSaveChanges() : setEdit(true)
+        onClick={() => {
+          edit ? handleSaveChanges() : setEdit(true)
           console.log('valor del edit', edit)
         }}
         className="absolute top-4 right-4 px-4 py-2 bg-blue-500 text-white rounded-md cursor-pointer hover:bg-blue-600 z-20"
@@ -181,6 +181,14 @@ const Profile = ({ user, fetchUser }) => {
           Change Email Address
         </button>
       </div>
+      <div className="w-full flex justify-center items-center">
+        <button
+        type="button"
+        onClick={onClickLogout}
+        className="border bg-red-600 hover:bg-red-700 cursor-pointer text-xl text-white p-2 rounded-2xl"
+      >Sign out</button>
+      </div>
+      
     </div>
   );
 };
