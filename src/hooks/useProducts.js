@@ -133,6 +133,31 @@ export function useProducts() {
         }
     }
 
+    const deleteProduct = async (id) => {
+        const url = new URL(`${config.urlHost}/api/products/${id}`);
+        try {
+            const response = await fetch(url, {
+                method: "DELETE",
+                credentials: "include",
+            });
+
+            if (!response.ok) {
+                if (response.status === 500) {
+                    throw new Error("Error al eliminar el producto");
+                }
+
+                throw new Error("Error en el servidor");
+            }
+
+            socket.emit("updateProducts")
+            return { success: true };
+        } catch (err) {
+            console.error(err.message);
+            return { success: false, error: err.message };
+        }
+    };
+
+
     const createCategory = async (category) => {
         try {
 
@@ -152,6 +177,6 @@ export function useProducts() {
 
     }
 
-    return { products, pagination, loading, fetchProductById, createCategory, fetchCategories }
+    return { products, pagination, loading, fetchProductById, deleteProduct, createCategory, fetchCategories }
 }
 
