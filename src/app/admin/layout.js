@@ -1,24 +1,13 @@
 'use client';
 
-import { CartProvider } from "@/context/cartContext";
 import { UserProvider, useUser } from "@/context/UserContext";
-import Navbar from "@/components/Navbar/Navbar";
-import { useEffect, useRef } from "react";
-import { usePathname } from "next/navigation";
 import Sidebar from "@/components/Sidebar/Sidebar";
+import Link from "next/link";
+import { ArrowLongRightIcon } from "@heroicons/react/24/outline";
 
-const validPaths = ["/cart", "/products", "/chat", "/createProduct", "/deleteProduct", "/profile", "/payment/success", "/payment/cancel", "/stadistics"];
 
 export default function RootLayout({ children }) {
 
-  const pathname = usePathname()
-  
-  const isvalidPath = validPaths.some((path) => pathname.startsWith(path))
-  // const { user } = useUser() 
-
-  // useEffect(()=>{
-  //   console.log("layout cargado")
-  // }, [user]);
 
 
 
@@ -29,13 +18,13 @@ export default function RootLayout({ children }) {
       </head>
       <body>
         <UserProvider>
-          <CartProvider>
-              <Navbar />
               <Sidebar  />
+              <Link href={"/products"} className="absolute top-3 right-3 w-auto flex gap-1 justify-center items-center"> <span className="flex-1">Página principal</span> <ArrowLongRightIcon className="w-7"/></Link>
+              <div className="w-full pl-20">
+                {children}
+              </div>
+              
             
-              {children}
-            
-          </CartProvider>
         </UserProvider>
       </body>
     </html>

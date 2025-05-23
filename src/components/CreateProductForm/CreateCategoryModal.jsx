@@ -22,7 +22,7 @@ export const CreateCategoryModal = ({ setCategories, closeModal }) => {
     }
 
     return (
-        <div className="absolute flex flex-col items-center gap-2 p-4 pt-1 -top-48 w-1/2 right-0 border bg-white">
+        <div className="absolute flex flex-col items-center gap-2 p-4 pt-1 bottom-10 w-1/2 right-0 border bg-white">
             <button
                 type="button"
                 onClick={closeModal}
